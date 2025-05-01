@@ -1,0 +1,64 @@
+<body>
+  <div class="header">
+    <div class="header-content">
+      <h2>Welcome Back, <span class="admin-name">{{AdminUser.userName}}</span></h2>
+      <div class="user-avatar">
+        <span>{{AdminUser.userName.charAt(0).toUpperCase()}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <div class="side-nav">
+      <div class="nav-header">
+        <h3>Navigation</h3>
+      </div>
+
+      <nav class="nav-menu">
+        <button (click)="getDashboard()" class="nav-button">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </button>
+
+        <button (click)="getCourses()" class="nav-button">
+          <i class="fas fa-book-open"></i>
+          <span>Courses</span>
+        </button>
+
+        <button (click)="getDoctors()" class="nav-button">
+          <i class="fas fa-user-md"></i>
+          <span>Doctors</span>
+        </button>
+
+        <button (click)="getStudents()" class="nav-button">
+          <i class="fas fa-users"></i>
+          <span>Students</span>
+        </button>
+
+        <button (click)="getmManageCourses()" class="nav-button">
+          <i class="fas fa-plus-circle"></i>
+          <span>Register Course</span>
+        </button>
+
+        <button (click)="getRegisterCourse()" class="nav-button">
+          <i class="fas fa-user-plus"></i>
+          <span>Register Doctor</span>
+        </button>
+
+        <button (click)="getuploadfile()" class="nav-button">
+          <i class="fas fa-file-upload"></i>
+          <span>Manage Files</span>
+        </button>
+
+        <button (click)="logout()" class="nav-button logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Log Out</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="content">
+      <router-outlet />
+    </div>
+  </div>
+</body>

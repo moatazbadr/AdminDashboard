@@ -1,0 +1,70 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2 class="dashboard-title">Edu Plat Analytics Dashboard</h2>
+    <div class="last-updated">Last updated: Just now</div>
+  </div>
+
+  <div class="stats-grid">
+    <!-- Main Stats Cards -->
+    <div class="stat-card students">
+      <div class="card-content">
+        <div class="icon">🎓</div>
+        <div class="stat-value">{{eduplatStats.studentsNum}}</div>
+        <div class="stat-label">Students</div>
+        <div class="stat-change positive">↑ 12% this month</div>
+      </div>
+    </div>
+
+    <div class="stat-card doctors">
+      <div class="card-content">
+        <div class="icon">🩺</div>
+        <div class="stat-value">{{eduplatStats.doctorNum}}</div>
+        <div class="stat-label">Doctors</div>
+        <div class="stat-change positive">↑ 3 new hires</div>
+      </div>
+    </div>
+
+    <div class="stat-card courses">
+      <div class="card-content">
+        <div class="icon">📚</div>
+        <div class="stat-value">{{eduplatStats.coursesNum}}</div>
+        <div class="stat-label">Courses</div>
+        <div class="stat-change neutral">2 upcoming</div>
+      </div>
+    </div>
+
+    <!-- New Additional Stats -->
+    <!-- <div class="stat-card enrollment">
+      <div class="card-content">
+        <div class="icon">📝</div>
+        <div class="stat-value">87%</div>
+        <div class="stat-label">Enrollment Rate</div>
+        <div class="stat-change positive">↑ 5% from last term</div>
+      </div>
+    </div> -->
+
+    <!-- <div class="stat-card satisfaction">
+      <div class="card-content">
+        <div class="icon">⭐</div>
+        <div class="stat-value">4.8</div>
+        <div class="stat-label">Satisfaction Score</div>
+        <div class="stat-change positive">↑ 0.2 points</div>
+      </div>
+    </div> -->
+
+    <!-- <div class="stat-card completion">
+      <div class="card-content">
+        <div class="icon">🏆</div>
+        <div class="stat-value">92%</div>
+        <div class="stat-label">Completion Rate</div>
+        <div class="stat-change negative">↓ 3% this term</div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="dashboard-footer ">
+    <button class="refresh-btn" (click)="reload()">
+      <i class="fas fa-sync-alt"></i> Refresh Data
+    </button>
+  </div>
+</div>

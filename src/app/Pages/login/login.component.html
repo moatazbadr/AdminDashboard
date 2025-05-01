@@ -1,0 +1,56 @@
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="logo-container">
+          <img [src]="getImagePath()" class="login-logo" alt="Edu Plat Logo">
+        </div>
+        <h2 class="login-title">Admin Portal</h2>
+        <p class="login-subtitle">Sign in to access your dashboard</p>
+      </div>
+
+      <form class="login-form">
+        <div class="form-group">
+          <label for="Username">Email Address</label>
+          <input type="text"
+                 class="form-control"
+                 id="Username"
+                 [(ngModel)]="AdminUser.email"
+                 placeholder="Enter your email"
+                 name="email">
+          <i class="fas fa-envelope input-icon"></i>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password"
+                 class="form-control"
+                 id="password"
+                 placeholder="Enter your password"
+                 [(ngModel)]="AdminUser.password"
+                 name="password">
+          <i class="fas fa-lock input-icon"></i>
+        </div>
+
+        <button (click)="OnLogin()"
+                type="submit"
+                class="login-button">
+          <span>Sign In</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <p>Having trouble signing in? <a href="#">Contact support</a></p>
+      </div>
+    </div>
+
+    <div class="login-background">
+      <div class="bg-shapes">
+        <div class="shape-1"></div>
+        <div class="shape-2"></div>
+        <div class="shape-3"></div>
+      </div>
+    </div>
+  </div>
+</body>

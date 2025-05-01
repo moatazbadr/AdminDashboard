@@ -1,0 +1,56 @@
+<div class="courses-container">
+  <!-- Search and Action Bar -->
+  <div class="action-bar">
+    <div class="search-container">
+      <i class="fas fa-search search-icon"></i>
+      <input
+        type="text"
+        placeholder="Search courses by code..."
+        [(ngModel)]="searchText"
+        name="searchInput"
+        (input)="searchCourses()"
+        class="search-input"
+      >
+    </div>
+
+    <div class="action-buttons">
+      <button class="action-btn delete-btn" (click)="removeCourse()">
+        <i class="fas fa-trash-alt"></i>
+        <span>Delete Course</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Courses Grid -->
+  <div class="courses-grid">
+    <div class="course-card" *ngFor="let Course of filteredCourses | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+      <div class="card-header">
+        <h3 class="course-code">{{ Course.courseCode }}</h3>
+        <span class="credit-hours">{{ Course.courseHours }} Credit Hours</span>
+      </div>
+
+      <div class="card-body">
+        <p class="course-description">{{ Course.courseDescription }}</p>
+
+        <div class="doctor-info">
+          <span class="label">Assigned Doctor:</span>
+          <span class="doctor-name" [ngClass]="{ 'not-assigned': Course.doctors.length <= 0 }">
+            {{ Course.doctors.length == 0 ? 'Not Assigned' : Course.doctors }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-container">
+    <pagination-controls
+      (pageChange)="page = $event"
+      previousLabel="Prev"
+      nextLabel="Next"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div>
+</div>
