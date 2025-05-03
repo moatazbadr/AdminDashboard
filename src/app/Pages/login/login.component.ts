@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { LogoutConfirmComponent } from '../../Components/logout-confirm/logout-confirm.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-login',
   imports: [FormsModule],
@@ -15,7 +16,7 @@ export class LoginComponent {
   getImagePath() {
     return "../../../assets/EduPlat_logo.png";
   };
-
+  constructor(private dialog: MatDialog) {}
   AdminUser = {
     "email": "",
     "password": ""
@@ -26,10 +27,14 @@ export class LoginComponent {
   router = inject(Router);
 
   OnLogin() {
-    this.http.post(this.baseurl.BaseUrl + "/Accounts/Login", this.AdminUser)
+    this.http.post(this.baseurl.BaseUrl+"/Accounts/Login", this.AdminUser)
       .subscribe((res: any) => {
+        if (res.success === false) {
+          alert(res.message);
+          return;
+        }
         if (res.token && res.roles[0] === 'Admin') {
-          const expiresIn = 60*60 * 1000; // 1 hour expiration for testing
+          const expiresIn = 60*60 * 1000;
           const expirationTime = new Date().getTime() + expiresIn;
 
           localStorage.setItem('token', res.token);
@@ -55,9 +60,19 @@ export class LoginComponent {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('tokenExpiration');
-    this.router.navigateByUrl('/login');
+    const dialogRef = this.dialog.open(LogoutConfirmComponent, {
+      width: '350px',
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('tokenExpiration');
+        this.router.navigateByUrl('/login');
+      }
+    });
   }
+
 
 }

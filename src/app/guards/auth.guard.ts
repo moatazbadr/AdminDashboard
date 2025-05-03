@@ -14,7 +14,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     return false;
   }
 
-  // Check if token is expired
+
   const now = new Date().getTime();
   if (tokenExpiration && parseInt(tokenExpiration) < now) {
     console.warn("Token expired. Logging out.");
