@@ -4,6 +4,8 @@ import { Router, RouterOutlet } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JsonPipe } from '@angular/common';
+import { LogoutConfirmComponent } from '../../Components/logout-confirm/logout-confirm.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-layout',
   standalone:true,
@@ -26,7 +28,7 @@ baseUrl=new BasUrl();
     'email':'',
     'userName':''
   }
-
+  constructor(private dialog: MatDialog) {}
   GetProfile(){
     this.http.get(this.baseUrl.BaseUrl+"/Profile/Profile").subscribe(
       (res:any)=>{
@@ -83,10 +85,26 @@ baseUrl=new BasUrl();
   }
 
   logout() {
-    if (confirm("are you sure you want to logout!")){
-    localStorage.removeItem('token');
-    localStorage.removeItem('tokenExpiration');
-    this.router.navigateByUrl('/login');
+    const dialogRef = this.dialog.open(LogoutConfirmComponent, {
+      width: '350px',
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.http.post(`${this.baseUrl.BaseUrl}/Accounts/logout`, {}).subscribe({
+          next: () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('tokenExpiration');
+            this.router.navigateByUrl('/login');
+          },
+          error: (err) => {
+            console.error('Logout error:', err);
+            alert('Logout failed. Try again.');
+          }
+        });
+      }
+    });
   }
-}
+
 }

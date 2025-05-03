@@ -7,7 +7,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AddCourse } from '../../Models/AddingCourse';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponentComponent } from '../../Components/confirm-component/confirm-component.component';
+import { FinalMessageComponent } from '../../Components/final-message/final-message.component';
 @Component({
   selector: 'app-courses',
   standalone: true,
@@ -25,7 +27,7 @@ export class CoursesComponent implements OnInit {
   http = inject(HttpClient);
 
   baseUrl=new BasUrl();
-
+  constructor(private dialog: MatDialog) {}
   load_Courses() {
     this.http.get<Course[]>(this.baseUrl.BaseUrl+"/Course/Get-all-courses").subscribe({
       next: (res: Course[]) => {
@@ -54,38 +56,60 @@ export class CoursesComponent implements OnInit {
 
   removeCourse(){
     if (this.searchText===""){
-      alert("CourseCode must be Entered!");
+      this.dialog.open(FinalMessageComponent,{
+
+       width:'350px',
+       disableClose:false,
+       data :{
+        message :'Enter Search text y 3ammm'
+       }
+      })
       return;
     }
-
    const coursetoDelete=
     {
       courseCode:this.searchText.toUpperCase()
     }
+    const dialogRef = this.dialog.open(ConfirmComponentComponent, {
+      width: '350px',
+      disableClose: true,
+      data: {
+        message: `Are you sure you want to remove the course "${this.searchText.toUpperCase()}"?`
+      }
+    });
+        dialogRef.afterClosed().subscribe(result=>{
+          if(result){
 
+            this.http.delete(this.baseUrl.BaseUrl+"/Course/remove-course",{body:coursetoDelete}).subscribe(
+              {
+                next:(res:any)=>{
 
-      this.http.delete(this.baseUrl.BaseUrl+"/Course/remove-course",{body:coursetoDelete}).subscribe(
-        {
-          next:(res:any)=>{
-            if(res.success){
-              alert(res.message);
-              this.load_Courses();
-            }
-            else{
-              alert("error"+res.message);
-            }
-          },
-          error:(err)=>{
-            alert("An error occured");
-            console.log(err);
+                    this.dialog.open(FinalMessageComponent,{
+                      width:'350px',
+                      disableClose:false,
+                      data :{
+                        message : res.success ? res.message : "Something went wrong"
+                      }
 
+                })
+                },
+                error:(err)=>{
+                  this.dialog.open(FinalMessageComponent,{
+                    width:'350px',
+                    disableClose:false,
+                    data :{
+                      message : "Couldn't delete the course check Console"
+                    }
+
+                })
+                console.log(err);
+
+              }
+              }
+            )
           }
-
         }
-
-
-
-      )
+        )
 
 
   }
