@@ -50,7 +50,7 @@ export class CoursesComponent implements OnInit {
           course.courseCode.toUpperCase().includes(this.searchText.toUpperCase())
         );
 
-    this.page = 1; // Reset to first page after search
+    this.page = 1;
   }
 
 
@@ -90,8 +90,8 @@ export class CoursesComponent implements OnInit {
                       data :{
                         message : res.success ? res.message : "Something went wrong"
                       }
-
-                })
+                }
+              )
                 },
                 error:(err)=>{
                   this.dialog.open(FinalMessageComponent,{

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { HttpClient } from '@angular/common/http';
 import { BasUrl } from '../../Models/UrlModel';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { FinalMessageComponent } from '../../Components/final-message/final-message.component';
 
 @Component({
   selector: 'app-doctor-register',
@@ -17,7 +19,7 @@ export class DoctorRegisterComponent {
   successMessage = '';
   errorMessage = '';
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient,private dialog: MatDialog) {
     this.doctorForm = this.fb.group({
       userName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
@@ -27,9 +29,14 @@ export class DoctorRegisterComponent {
 
   registerDoctor() {
     if (this.doctorForm.invalid) {
-      return;
+            this.dialog.open(FinalMessageComponent,{
+             width:'350px',
+             disableClose:false,
+             data :{
+              message :'Enter Doctor info correctly '
+             }
+            })
     }
-
     this.isLoading = true;
     this.successMessage = '';
     this.errorMessage = '';

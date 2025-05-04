@@ -18,11 +18,11 @@ export class DashboardComponent implements OnInit {
 
   reload() {
     console.log('Making API request...');
-    this.http.get<any>("https://eduplat123.runasp.net/api/AdminDashBoard/GetStats").subscribe({
+    this.http.get<any>(this.baseUrl.BaseUrl+"/AdminDashBoard/GetStats").subscribe({
       next: (res) => {
         console.log('Response received:', res);
         if (res.success && res.stats) {
-          console.log('Stats:', res.stats);
+        //  console.log('Stats:', res.stats);
           this.eduplatStats = res.stats;
         } else {
           console.error('Unexpected response structure:', res);
@@ -35,12 +35,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('Making API request on ngOnInit...');
-    this.http.get<any>("https://eduplat123.runasp.net/api/AdminDashBoard/GetStats").subscribe({
+    this.http.get<any>(this.baseUrl.BaseUrl+"/AdminDashBoard/GetStats").subscribe({
       next: (res) => {
         console.log('Response received:', res);
         if (res.success && res.stats) {
-          console.log('Stats:', res.stats);
+          //console.log('Stats:', res.stats);
           this.eduplatStats = res.stats;
         } else {
           console.error('Unexpected response structure:', res);

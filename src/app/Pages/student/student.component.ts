@@ -80,7 +80,7 @@ export class StudentComponent implements OnInit {
     }
 
     if (!confirm('Are you sure you want to delete this student?')) {
-      return; // Exit if the user cancels the deletion
+      return; 
     }
 
     this.http.delete(this.baseurl.BaseUrl + '/AdminDashBoard/DeleteStudent', {

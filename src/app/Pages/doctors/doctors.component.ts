@@ -80,7 +80,7 @@ export class DoctorsComponent implements OnInit {
     }
 
     if (!confirm('Are you sure you want to delete this doctor?')) {
-      return; // Exit if the user cancels the deletion
+      return;
     }
 
     this.http.delete(this.baseurl.BaseUrl + '/AdminDashBoard/DeleteDoctor', {
@@ -89,7 +89,7 @@ export class DoctorsComponent implements OnInit {
       next: (res: any) => {
         if (res.success) {
           alert(res.message);
-          this.getUsersByType('doctors'); // Refresh the doctor list after deletion
+          this.getUsersByType('doctors');
         } else {
           alert('Error: ' + res.message);
         }
