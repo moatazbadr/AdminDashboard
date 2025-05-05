@@ -1,9 +1,9 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const customInterceptor: HttpInterceptorFn = (req, next) => {
-  // Exclude login URL from interceptor
+
   if (req.url.includes('/api/Accounts/Login')) {
-    return next(req); // Don't modify the request
+    return next(req);
   }
 
   const token = localStorage.getItem('token');
