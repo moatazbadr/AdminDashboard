@@ -9,13 +9,13 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 30px;
-  background-color: #f8fafc;
+  /* background-color: ; */
   border-radius: 16px;
   box-shadow: var(--card-shadow);
 }
 
 .dashboard-header {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
@@ -23,7 +23,8 @@
   font-size: 32px;
   font-weight: 600;
   color: #2d3748;
-  margin-bottom: 8px;
+  /* margin-top: 20px; */
+  margin-bottom: 7px;
   position: relative;
   display: inline-block;
 }
@@ -47,19 +48,24 @@
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 0.5fr));
   gap: 24px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .stat-card {
+
   background: white;
+  /* background-color: #2d3748; */
   border-radius: 12px;
-  padding: 20px;
+  padding: 10px;
+  height: 200px;
+  width: 340px;
   box-shadow: var(--card-shadow);
   transition: var(--transition);
   position: relative;
   overflow: hidden;
+
 }
 
 .stat-card::before {
@@ -68,7 +74,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 4px;
+  height: 10px;
 }
 
 .stat-card:hover {
@@ -84,7 +90,7 @@
 }
 
 .icon {
-  font-size: 42px;
+  font-size: 40px;
   margin-bottom: 12px;
   transition: var(--transition);
 }
@@ -94,7 +100,7 @@
 }
 
 .stat-value {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 700;
   margin: 8px 0;
   line-height: 1;
@@ -154,21 +160,7 @@
   background: linear-gradient(90deg, #f59e0b, #fbbf24);
 }
 
-.enrollment {
-  border-top: 4px solid #6366f1;
-}
 
-.enrollment::before {
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
-}
-
-.satisfaction {
-  border-top: 4px solid #ec4899;
-}
-
-.satisfaction::before {
-  background: linear-gradient(90deg, #ec4899, #f472b6);
-}
 
 .completion {
   border-top: 4px solid #14b8a6;
@@ -180,7 +172,12 @@
 
 .dashboard-footer {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 50px;
+
+  width: 100%;
+  /* background-color: ; */
+  justify-content: center;
+  align-items: center;
 }
 
 .refresh-btn {

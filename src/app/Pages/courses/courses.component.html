@@ -1,5 +1,4 @@
 <div class="courses-container">
-  <!-- Search and Action Bar -->
   <div class="action-bar">
     <div class="search-container">
       <i class="fas fa-search search-icon"></i>
@@ -10,6 +9,7 @@
         name="searchInput"
         (input)="searchCourses()"
         class="search-input"
+
       >
     </div>
 
@@ -37,12 +37,13 @@
           <span class="doctor-name" [ngClass]="{ 'not-assigned': Course.doctors.length <= 0 }">
             {{ Course.doctors.length == 0 ? 'Not Assigned' : Course.doctors }}
           </span>
+          <button class="btn" (click)="getCourseProfile(Course.courseCode)">
+            <i class="fas fa-edit"></i>
+          </button>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Pagination -->
   <div class="pagination-container">
     <pagination-controls
       (pageChange)="page = $event"
@@ -53,4 +54,5 @@
       screenReaderCurrentLabel="You're on page">
     </pagination-controls>
   </div>
+
 </div>

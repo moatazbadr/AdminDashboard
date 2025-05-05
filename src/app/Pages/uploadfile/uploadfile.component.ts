@@ -31,10 +31,9 @@ export class UploadfileComponent implements OnInit {
   }
 
   loadFiles() {
-    this.http.get<{ files: any[] }>(`${this.apiUrl.BaseUrl}/StudentHelp/GetAllFiles`).subscribe({
+    this.http.get<{ files: any[] }>(`${this.apiUrl.BaseUrl}/StudentHelp/GetAdminFiles`).subscribe({
       next: (response) => {
-       // console.log("API Response:", response); // Debugging
-        this.files = response.files ?? []; // Ensure 'files' exists
+        this.files = response.files ?? [];
         this.totalPages = Math.ceil(this.files.length / this.pageSize);
         this.updateDisplayedFiles();
       },

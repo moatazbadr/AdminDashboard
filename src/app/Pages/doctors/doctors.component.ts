@@ -4,7 +4,9 @@ import { UsersService } from '../../Services/UsersService';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-
+import { MatDialog } from '@angular/material/dialog';
+import { FinalMessageComponent } from '../../Components/final-message/final-message.component';
+import { ConfirmComponentComponent } from '../../Components/confirm-component/confirm-component.component';
 interface User {
   id: string;
   userName: string;
@@ -31,7 +33,7 @@ export class DoctorsComponent implements OnInit {
   itemsPerPage: number = 6;
   totalPages: number = 0;
 
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService,private dialog:MatDialog) {}
 
   ngOnInit(): void {
     this.getUsersByType('doctors');
@@ -79,25 +81,57 @@ export class DoctorsComponent implements OnInit {
       return;
     }
 
-    if (!confirm('Are you sure you want to delete this doctor?')) {
-      return;
-    }
-
-    this.http.delete(this.baseurl.BaseUrl + '/AdminDashBoard/DeleteDoctor', {
-      params: { userId: userId }
-    }).subscribe({
-      next: (res: any) => {
-        if (res.success) {
-          alert(res.message);
-          this.getUsersByType('doctors');
-        } else {
-          alert('Error: ' + res.message);
-        }
-      },
-      error: (err) => {
-        alert('An error occurred while deleting the doctor.');
-        console.error(err);
+    const dialogRef = this.dialog.open(ConfirmComponentComponent, {
+      width: '350px',
+      disableClose: true,
+      data: {
+        message: `Are you sure you want to remove this Doctor ?`
       }
     });
+    // if (!confirm('Are you sure you want to delete this doctor?')) {
+    //   return;
+    // }
+    dialogRef.afterClosed().subscribe(result=>{
+        if (result){
+
+          this.http.delete(this.baseurl.BaseUrl + '/AdminDashBoard/DeleteDoctor', {
+            params: { userId: userId }
+          }).subscribe({
+            next: (res: any) => {
+              if (res.success===true) {
+                this.dialog.open(FinalMessageComponent,{
+                  width:'350px',
+                  disableClose:false,
+                  data :{
+                    message :  res.message
+                  }}
+                );
+                this.getUsersByType('doctors');
+              } else {
+                this.dialog.open(FinalMessageComponent,{
+                  width:'350px',
+                  disableClose:false,
+                  data :{
+                    message :  res.message
+                  }}
+                );
+              }
+            },
+            error: (err) => {
+              this.dialog.open(FinalMessageComponent,{
+                width:'350px',
+                disableClose:false,
+                data :{
+                  message :  "Fatel Error Check Console"
+                }}
+              );
+              console.error(err);
+            }
+          });
+        }
+
+
+    },)
+
   }
 }

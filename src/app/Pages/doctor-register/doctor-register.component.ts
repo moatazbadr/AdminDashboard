@@ -46,7 +46,13 @@ export class DoctorRegisterComponent {
         next: (res: any) => {
           this.isLoading = false;
           if (res.success) {
-            this.successMessage = 'Doctor registered successfully!';
+            this.dialog.open(FinalMessageComponent,{
+              width:'350px',
+              disableClose:false,
+              data :{
+                message :  "Doctor registration was successful"
+              }}
+            );
             this.doctorForm.reset();
           } else {
             this.errorMessage = res.message || 'Failed to register doctor.';
@@ -54,8 +60,13 @@ export class DoctorRegisterComponent {
         },
         error: (err) => {
           this.isLoading = false;
-          this.errorMessage = 'An error occurred. Please try again.';
-          console.error(err);
+          this.dialog.open(FinalMessageComponent,{
+            width:'350px',
+            disableClose:false,
+            data :{
+              message :  "Error while adding doctor"
+            }}
+          );
         }
       });
   }

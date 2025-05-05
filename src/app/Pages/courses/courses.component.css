@@ -1,11 +1,13 @@
-
+body{
+  overflow: hidden;
+  height: inherit;
+}
 
 .courses-container {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
 }
-
 /* Action Bar */
 .action-bar {
   display: flex;
@@ -19,7 +21,7 @@
 .search-container {
   position: relative;
   flex-grow: 1;
-  max-width: 400px;
+  max-width: 300px;
 }
 
 .search-icon {
@@ -89,8 +91,8 @@
 /* Courses Grid */
 .courses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 
@@ -132,7 +134,7 @@
 }
 
 .card-body {
-  padding: 1.5rem;
+  padding: 1rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -182,26 +184,47 @@
   color: #3a5bc7;
 }
 
-/* Pagination */
 .pagination-container {
   display: flex;
   justify-content: center;
-  padding: 1rem 0;
+  padding: 0rem 0;
+}
+.btn {
+  background-color: #FF8C00;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  width: auto;
+  min-width: 90px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .action-bar {
-    flex-direction: column;
-  }
-
-  .search-container {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .action-buttons {
-    width: 100%;
-    justify-content: flex-end;
-  }
+.btn:hover {
+  background-color: #FF6B00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,140,0,0.4);
+}
+
+.btn i {
+  font-size: 14px;
+}
+

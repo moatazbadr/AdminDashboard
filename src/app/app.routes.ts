@@ -9,6 +9,7 @@ import { ManageCoursesComponent } from './Pages/manage-courses/manage-courses.co
 import { authGuard } from './guards/auth.guard';
 import { DoctorRegisterComponent } from './Pages/doctor-register/doctor-register.component';
 import { UploadfileComponent } from './Pages/uploadfile/uploadfile.component';
+import { CourseUpdateComponent } from './Pages/course-update/course-update.component';
 
 
 
@@ -27,13 +28,14 @@ export const routes: Routes = [
   component:LayoutComponent,
   canActivate:[authGuard],
   children:[
-    {path:'Courses',component:CoursesComponent},
+    {path:'Courses',component:CoursesComponent },
+    { path: 'Courses/CourseUpdate/:courseCode', component: CourseUpdateComponent },
     {path:'dashboard',component:DashboardComponent},
     {path:'Doctors',component:DoctorsComponent},
     {path:'Student', component:StudentComponent},
     {path:'manageCourses', component:ManageCoursesComponent},
     {path:'registerdoctor',component:DoctorRegisterComponent},
-    {path:'uploadfile',component:UploadfileComponent  }
+    {path:'uploadfile',component:UploadfileComponent  },
   ]
 },
 

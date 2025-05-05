@@ -21,7 +21,7 @@
                  [(ngModel)]="AdminUser.email"
                  placeholder="Enter your email"
                  name="email">
-          <i class="fas fa-envelope input-icon"></i>
+          <i class="fas fa-envelope input-icon" style="position: absolute; top :46px"></i>
         </div>
 
         <div class="form-group">
@@ -31,8 +31,15 @@
                  id="password"
                  placeholder="Enter your password"
                  [(ngModel)]="AdminUser.password"
-                 name="password">
-          <i class="fas fa-lock input-icon"></i>
+                 name="password"
+                 [type]="showPassword ?'text' :'password'"
+                 >
+          <i class="fas fa-lock input-icon" style="position: absolute; top :46px"></i>
+          <i class="fas"
+   [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+   (click)="showPassword = !showPassword"
+   style="position: absolute; right: 10px; top: 47px; cursor: pointer;">
+</i>
         </div>
 
         <button (click)="OnLogin()"
@@ -44,8 +51,14 @@
       </form>
 
       <div class="login-footer">
-        <p>Having trouble signing in? <a href="#">Contact support</a></p>
+        <p>
+          Having trouble signing in?
+          <a href="mailto:zezobadr988@gmail.com?subject=Login%20Issue&body=Hi%20Support%2C%0A%0AI%20need%20help%20signing%20in.">
+            Contact support
+          </a>
+        </p>
       </div>
+
     </div>
 
     <div class="login-background">

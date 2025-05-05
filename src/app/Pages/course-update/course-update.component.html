@@ -1,7 +1,8 @@
 
 <div class="container">
-  <h2 class="title">Add new Course</h2>
-  <form [formGroup]="courseForm" (ngSubmit)="submitCourseToApi()">
+  <h2 class="title">UPDATE COURSE {{CoruseToUpdate.courseCode}}</h2>
+
+  <form [formGroup]="courseForm" (ngSubmit)="UpdateCourseToApi()">
 
     <div class="form-group">
       <label>Course Code</label>
@@ -27,6 +28,8 @@
 
       </ng-container>
     </div>
+
+
     <div class="form-group">
       <label>Course Description</label>
       <textarea class="form-control" formControlName="courseDescription" placeholder="Enter Course Description"></textarea>
@@ -53,36 +56,17 @@
       <div class="form-group col">
         <label>Course Hours</label>
         <input type="number" class="form-control" formControlName="course_hours" placeholder="Hours of course">
-        <small class="text-danger" *ngIf="courseForm.controls['course_hours'].errors?.['required']">
-          Course Hours are required.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['course_hours'].errors?.['required'] && courseForm.controls['course_hours'].errors?.['min']">
-          Course Hours must be at least 2 hours.
-        </small>
       </div>
 
       <div class="form-group col">
         <label>Course Level</label>
         <input type="number" class="form-control" formControlName="course_level" placeholder="Level of course">
-        <small class="text-danger" *ngIf="courseForm.controls['course_level'].errors?.['required']">
-          Course Level is required.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['course_level'].errors?.['required'] && courseForm.controls['course_level'].errors?.['min']">
-          Course Level must be at least 1 .
-        </small>
       </div>
 
       <div class="form-group col">
         <label>Course Semester</label>
         <input type="number" class="form-control" formControlName="course_semster" placeholder="Semester of course">
-        <small class="text-danger" *ngIf="courseForm.controls['course_semster'].errors?.['required']">
-          Course Semester is required.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['course_semster'].errors?.['required'] && courseForm.controls['course_semster'].errors?.['min']">
-          Course Semester must be at least 1 amd max 2.
-        </small>
       </div>
-
     </div>
 
     <div class="form-group">
@@ -94,69 +78,26 @@
       <div class="form-group col">
         <label>Midterm Marks</label>
         <input type="number" class="form-control" formControlName="midTerm" placeholder="Midterm Marks">
-        <small class="text-danger" *ngIf="courseForm.controls['midTerm'].errors?.['required']">
-          Course Midterm is required.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['midTerm'].errors?.['required'] && courseForm.controls['midTerm'].errors?.['min']">
-          Course Midterm  cannot be less than 15.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['midTerm'].errors?.['required'] && !courseForm.controls['midTerm'].errors?.['min'] && courseForm.controls['midTerm'].errors?.['max']">
-          Course Midterm  cannot be more than 37.
-        </small>
       </div>
 
       <div class="form-group col">
         <label>Oral Marks</label>
         <input type="number" class="form-control" formControlName="oral" placeholder="Oral Marks">
-        <small class="text-danger" *ngIf="courseForm.controls['oral'].errors?.['required']">
-          Course oral is required.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['oral'].errors?.['required'] && courseForm.controls['oral'].errors?.['min']">
-          Course oral  cannot be less than 5.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['oral'].errors?.['required'] && !courseForm.controls['oral'].errors?.['min'] && courseForm.controls['oral'].errors?.['max']">
-          Course oral  cannot be more than 10.
-        </small>
       </div>
 
       <div class="form-group col">
         <label>Final Exam Marks</label>
         <input type="number" class="form-control" formControlName="finalExam" placeholder="Final Exam Marks">
-        <small class="text-danger" *ngIf="courseForm.controls['finalExam'].errors?.['required']">
-          Course finalExam is required.
-        </small>
-
-        <small class="text-danger" *ngIf="!courseForm.controls['finalExam'].errors?.['required'] && courseForm.controls['finalExam'].errors?.['min']">
-          Course finalExam  cannot be less than 90.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['finalExam'].errors?.['required'] && !courseForm.controls['finalExam'].errors?.['min'] && courseForm.controls['finalExam'].errors?.['max']">
-          Course finalExam  cannot be more than 120.
-        </small>
       </div>
 
       <div class="form-group col">
         <label>Lab Marks</label>
         <input type="number" class="form-control" formControlName="lab" placeholder="Lab Marks">
-
       </div>
 
       <div class="form-group col">
         <label>Total Marks</label>
         <input type="number" class="form-control" formControlName="totalMark" placeholder="Total Marks">
-        <small class="text-danger" *ngIf="courseForm.controls['totalMark'].errors?.['required']">
-          Course totalMark is required.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['totalMark'].errors?.['required'] && courseForm.controls['totalMark'].errors?.['min']">
-          Course totalMark  cannot be less than 100.
-        </small>
-
-        <small class="text-danger" *ngIf="!courseForm.controls['totalMark'].errors?.['required'] && !courseForm.controls['totalMark'].errors?.['min'] && courseForm.controls['totalMark'].errors?.['max']">
-          Course totalMark  cannot be more than 200.
-        </small>
-
-        <small class="text-danger" *ngIf="courseForm.controls['totalMark'].errors?.['invalidCourseMarks']">
-          invalid total Course Marks.
-        </small>
       </div>
 
     </div>
@@ -166,7 +107,7 @@
     class="btn-submit"
     [disabled]="courseForm.invalid || isLoading"
     [ngClass]="{ 'disabled-btn': courseForm.invalid || isLoading }">
-    {{  'Add Course' }}
+    {{  'Update Course' }}
   </button>
 
 

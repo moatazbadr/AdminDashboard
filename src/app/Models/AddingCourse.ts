@@ -11,7 +11,5 @@ export class AddCourse{
     finalExam:number= 0
     lab:number= 0;
     totalMark:number= 0;
-
-
-
+    
 }

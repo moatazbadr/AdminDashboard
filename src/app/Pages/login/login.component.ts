@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LogoutConfirmComponent } from '../../Components/logout-confirm/logout-confirm.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import { FinalMessageComponent } from '../../Components/final-message/final-message.component';
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule,CommonModule],
   standalone: true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -21,6 +22,7 @@ export class LoginComponent {
     "email": "",
     "password": ""
   };
+  showPassword :boolean=false;
 
   baseurl = new BasUrl();
   http = inject(HttpClient);
@@ -30,7 +32,14 @@ export class LoginComponent {
     this.http.post(this.baseurl.BaseUrl+"/Accounts/Login", this.AdminUser)
       .subscribe((res: any) => {
         if (res.success === false) {
-          alert(res.message);
+          this.dialog.open(FinalMessageComponent,{
+            width:'350px',
+            disableClose:false,
+            data :{
+              message : res.message ? res.message :"fatel error check Console"
+            }}
+          );
+          console.log(res.message);
           return;
         }
         if (res.token && res.roles[0] === 'Admin') {
@@ -40,7 +49,7 @@ export class LoginComponent {
           localStorage.setItem('token', res.token);
           localStorage.setItem('tokenExpiration', expirationTime.toString());
 
-          this.startAutoLogout(expiresIn); // Schedule auto-logout
+          this.startAutoLogout(expiresIn);
 
           this.router.navigateByUrl('/dashboard');
         } else {
@@ -56,23 +65,33 @@ export class LoginComponent {
     }, expirationTime);
   }
   message(){
-    alert('Your session has expired!')
+    this.dialog.open(FinalMessageComponent,{
+      width:'350px',
+      disableClose:false,
+      data :{
+        message :  "your session has expired"
+      }}
+    );
   }
 
   logout() {
-    const dialogRef = this.dialog.open(LogoutConfirmComponent, {
-      width: '350px',
-      disableClose: true
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
         localStorage.removeItem('token');
         localStorage.removeItem('tokenExpiration');
+        this.http.post(`${this.baseurl.BaseUrl}/Accounts/logout`, {}).subscribe({
+          next: () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('tokenExpiration');
+            this.router.navigateByUrl('/login');
+          },
+          error: (err) => {
+            console.error('Logout error:', err);
+            alert('Logout failed. Try again.');
+          }
+        });
         this.router.navigateByUrl('/login');
+
       }
-    });
-  }
 
 
 }

@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { BasUrl } from '../../Models/UrlModel';
 import { UsersService } from '../../Services/UsersService';
+import { FinalMessageComponent } from '../../Components/final-message/final-message.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponentComponent } from '../../Components/confirm-component/confirm-component.component';
 
 interface User {
   id: string;
@@ -28,10 +31,10 @@ export class StudentComponent implements OnInit {
   http = inject(HttpClient);
 
   currentPage: number = 1;
-  itemsPerPage: number = 6;
+  itemsPerPage: number = 5;
   totalPages: number = 0;
 
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService,private dialog:MatDialog) {}
 
   ngOnInit(): void {
     this.getUsersByType('students');
@@ -75,29 +78,57 @@ export class StudentComponent implements OnInit {
 
   RemoveStudent(userId: string) {
     if (userId.trim() === '') {
-      alert('No student to delete');
-      return;
-    }
-
-    if (!confirm('Are you sure you want to delete this student?')) {
-      return; 
-    }
-
-    this.http.delete(this.baseurl.BaseUrl + '/AdminDashBoard/DeleteStudent', {
-      params: { userId: userId }
-    }).subscribe({
-      next: (res: any) => {
-        if (res.success) {
-          alert(res.message);
-          this.getUsersByType('students'); // Refresh the student list after deletion
-        } else {
-          alert('Error: ' + res.message);
+          alert('No Student to delete');
+          return;
         }
-      },
-      error: (err) => {
-        alert('An error occurred while deleting the student.');
-        console.error(err);
-      }
-    });
+
+        const dialogRef = this.dialog.open(ConfirmComponentComponent, {
+          width: '350px',
+          disableClose: true,
+          data: {
+            message: `Are you sure you want to remove this Student ?`
+          }
+        });
+        dialogRef.afterClosed().subscribe(result=>{
+            if (result){
+
+              this.http.delete(this.baseurl.BaseUrl + '/AdminDashBoard/DeleteStudent', {
+                params: { userId: userId }
+              }).subscribe({
+                next: (res: any) => {
+                  if (res.success===true) {
+                    this.dialog.open(FinalMessageComponent,{
+                      width:'350px',
+                      disableClose:false,
+                      data :{
+                        message :  res.message
+                      }}
+                    );
+                    this.getUsersByType('Students');
+                  } else {
+                    this.dialog.open(FinalMessageComponent,{
+                      width:'350px',
+                      disableClose:false,
+                      data :{
+                        message :  res.message
+                      }}
+                    );
+                  }
+                },
+                error: (err) => {
+                  this.dialog.open(FinalMessageComponent,{
+                    width:'350px',
+                    disableClose:false,
+                    data :{
+                      message :  "Fatel Error Check Console"
+                    }}
+                  );
+                  console.error(err);
+                }
+              });
+            }
+
+
+        },)
   }
 }

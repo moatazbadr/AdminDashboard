@@ -10,23 +10,29 @@ import { AddCourse } from '../../Models/AddingCourse';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponentComponent } from '../../Components/confirm-component/confirm-component.component';
 import { FinalMessageComponent } from '../../Components/final-message/final-message.component';
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [FormsModule, CommonModule, NgxPaginationModule,],
+  imports: [FormsModule, CommonModule, NgxPaginationModule,RouterModule],
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent implements OnInit {
+
+    router=inject(Router);
+  getCourseProfile(courseCode:string) {
+    this.router.navigateByUrl(`/Courses/CourseUpdate/${courseCode}`);
+  }
   courses: Course[] = [];
   filteredCourses: Course[] = [];
   searchText: string = '';
   page: number = 1;
-  itemsPerPage: number = 8;
+  itemsPerPage: number = 4;
   newCourse: AddCourse = new AddCourse();
   http = inject(HttpClient);
-
   baseUrl=new BasUrl();
+
   constructor(private dialog: MatDialog) {}
   load_Courses() {
     this.http.get<Course[]>(this.baseUrl.BaseUrl+"/Course/Get-all-courses").subscribe({
@@ -47,7 +53,7 @@ export class CoursesComponent implements OnInit {
     this.filteredCourses = this.searchText.trim() === ''
       ? this.courses
       : this.courses.filter(course =>
-          course.courseCode.toUpperCase().includes(this.searchText.toUpperCase())
+          course.courseCode.toUpperCase().includes(this.searchText.toUpperCase().trim())
         );
 
     this.page = 1;
@@ -55,13 +61,13 @@ export class CoursesComponent implements OnInit {
 
 
   removeCourse(){
-    if (this.searchText===""){
+    if (this.searchText.trim()===""){
       this.dialog.open(FinalMessageComponent,{
 
        width:'350px',
        disableClose:false,
        data :{
-        message :'Enter Search text y 3ammm'
+        message :'Enter Valid Course Code'
        }
       })
       return;
@@ -92,7 +98,7 @@ export class CoursesComponent implements OnInit {
                       }
                 }
               )
-                },
+            },
                 error:(err)=>{
                   this.dialog.open(FinalMessageComponent,{
                     width:'350px',
@@ -101,7 +107,8 @@ export class CoursesComponent implements OnInit {
                       message : "Couldn't delete the course check Console"
                     }
 
-                })
+                }
+              )
                 console.log(err);
 
               }
