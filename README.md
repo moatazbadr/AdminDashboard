@@ -1,39 +1,39 @@
-
 # Edu-plat Admin Dashboard
 
 ![Angular](https://img.shields.io/badge/Angular-v19-red)
 ![TypeScript](https://img.shields.io/badge/TypeScript-v5-blue)
+![Node.js](https://img.shields.io/badge/Node.js-v18+-green)
 
-## 📌 Introduction
+## 📌 OverView
 
-A comprehensive admin dashboard built with Angular for managing Edu-plat resources. Administrators can:
+The Edu-Plat Admin Dashboard is a crucial component of Edu-Plat, 
+an online educational platform designed to serve the Faculty of Science,
+Ain Shams University's Mathematics Department espcially Computer sicence program.
+This dashboard provides administrators with the tools to manage courses ,users and more!
 
-- Manage courses (add/edit/delete)
-- Manage professors ("doctors" in the system)
-- Control user access and permissions
+### Admin Roles :
+- Manage courses (add/delete)
+- Manage Doctor Registeration And Removal
+- Upload important Academic Files (Exams Schedules ,Labs Schedules ,etc...)
 - View academic analytics
+- Control And Manage students (remove, inquire)
 
-## 🛠️ Installation
 
-### Prerequisites
-- Node.js v18+
-- Angular CLI v19+
-- npm v9+
+## 📋 Prerequisites
 
-### Setup
+|        Software      |       Version       |              Download Link                   |
+| ---------------------| --------------------| -------------------------------------------- |
+| Node.js              | v18 or higher       | [https://nodejs.org/](https://nodejs.org/)   |
+| npm                  | v9 or higher        | Comes with Node.js                           |
+| Angular CLI          | v15 or higher       | npm install -g @angular/cli                |
+| Git (optional)       | Any                 | [https://git-scm.com/](https://git-scm.com/) |
 
-1. Clone the repository:
-```bash
-git clone https://github.com/your-repo/university-admin-dashboard.git
-cd university-admin-dashboard
-```
 
-2. Install dependancie
-```bash
-npm install
-```
-3. Start Development Server
-```bash
-ng serve --open
-```
-
+## ⚙️ Setup Instructions 
+  ### 🪟 For Windows 
+  1-Open PowerShell / CMD and run the following:
+  
+bash
+    git clone https://github.com/moatazbadr/AdminDashboard.git
+    cd AdminDashboard
+    npm install
