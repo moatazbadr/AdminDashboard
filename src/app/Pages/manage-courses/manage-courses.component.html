@@ -59,6 +59,9 @@
         <small class="text-danger" *ngIf="!courseForm.controls['course_hours'].errors?.['required'] && courseForm.controls['course_hours'].errors?.['min']">
           Course Hours must be at least 2 hours.
         </small>
+        <small class="text-danger" *ngIf="!courseForm.controls['course_hours'].errors?.['required'] && !courseForm.controls['course_hours'].errors?.['min'] && courseForm.controls['course_hours'].errors?.['max']">
+          Course Hours cannot be more than 4 hours.
+        </small>
       </div>
 
       <div class="form-group col">
@@ -70,6 +73,9 @@
         <small class="text-danger" *ngIf="!courseForm.controls['course_level'].errors?.['required'] && courseForm.controls['course_level'].errors?.['min']">
           Course Level must be at least 1 .
         </small>
+        <small class="text-danger" *ngIf="!courseForm.controls['course_level'].errors?.['required'] && !courseForm.controls['course_level'].errors?.['min'] && courseForm.controls['course_level'].errors?.['max']">
+          Course Level cannot be more than 4 .
+        </small>
       </div>
 
       <div class="form-group col">
@@ -79,7 +85,10 @@
           Course Semester is required.
         </small>
         <small class="text-danger" *ngIf="!courseForm.controls['course_semster'].errors?.['required'] && courseForm.controls['course_semster'].errors?.['min']">
-          Course Semester must be at least 1 amd max 2.
+          Course Semester must be at least 1.
+        </small>
+        <small class="text-danger" *ngIf="!courseForm.controls['course_semster'].errors?.['required'] && !courseForm.controls['course_semster'].errors?.['min'] && courseForm.controls['course_semster'].errors?.['max']">
+          Course Semester cannot be more than 2.
         </small>
       </div>
 

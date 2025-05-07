@@ -57,17 +57,17 @@ export class CourseUpdateComponent implements OnInit {
           this.CoruseToUpdate=res.course;
           // console.log(this.CoruseToUpdate);
           this.courseForm = this.fb.group({
-            courseCode: [this.CoruseToUpdate.courseCode, [Validators.required, Validators.pattern(/^[A-Za-z]{4}\d{3}$/),Validators.minLength(4),englishOnlyValidator]],
+            courseCode: [this.CoruseToUpdate.courseCode, [Validators.required, Validators.pattern(/^[A-Z]{4}\d{3}$/),Validators.minLength(4),englishOnlyValidator]],
             courseDescription: [this.CoruseToUpdate.courseDescription, [Validators.required,englishOnlyValidator,Validators.maxLength(50),Validators.min(5)]],
             course_hours: [this.CoruseToUpdate.course_hours, [Validators.required, Validators.min(2) ,Validators.max(4) , ]],
             course_level: [this.CoruseToUpdate.course_level, [Validators.required, Validators.min(1) ,Validators.max(4),]],
             course_semster: [this.CoruseToUpdate.course_semster, [Validators.required, Validators.min(1),Validators.max(2),]],
             has_Lab: [this.CoruseToUpdate.has_Lab ,],
-            midTerm: [this.CoruseToUpdate.midTerm, [Validators.required, Validators.min(0),]],
-            oral: [this.CoruseToUpdate.oral, [Validators.required, Validators.min(0),]],
-            finalExam: [this.CoruseToUpdate.finalExam, [Validators.required, Validators.min(0),]],
-            lab: [this.CoruseToUpdate.lab, [Validators.required, Validators.min(0),]],
-            totalMark: [this.CoruseToUpdate.totalMark, [Validators.required, Validators.min(1),]]
+            midTerm: [this.CoruseToUpdate.midTerm, [Validators.required, Validators.min(15),Validators.max(37),]],
+            oral: [this.CoruseToUpdate.oral, [Validators.required, Validators.min(5), Validators.max(10) ]],
+            finalExam: [this.CoruseToUpdate.finalExam, [Validators.required, Validators.min(90),   Validators.max(120),]],
+            lab: [this.CoruseToUpdate.lab, [Validators.required, Validators.min(0), Validators.max(50) ]],
+            totalMark: [this.CoruseToUpdate.totalMark, [Validators.required, Validators.min(100), Validators.max(200) ]]
           },{
             validators: courseMarkValidator
           }

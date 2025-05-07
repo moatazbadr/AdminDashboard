@@ -1,15 +1,18 @@
+import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BasUrl } from '../../Models/UrlModel';
+import { ConfirmComponentComponent } from '../../Components/confirm-component/confirm-component.component';
+import { FinalMessageComponent } from '../../Components/final-message/final-message.component';
 
 @Component({
   selector: 'app-uploadfile',
   templateUrl: './uploadfile.component.html',
   styleUrls: ['./uploadfile.component.css'],
-  standalone: true, // Add this
-  imports: [FormsModule, CommonModule] // Removed ReactiveFormsModule
+  standalone: true,
+  imports: [FormsModule, CommonModule]
 })
 export class UploadfileComponent implements OnInit {
   files: any[] = [];
@@ -24,7 +27,7 @@ export class UploadfileComponent implements OnInit {
   fileName: string = '';
   selectedFile: File | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private dialog: MatDialog) {}
 
   ngOnInit() {
     this.loadFiles();
@@ -45,7 +48,7 @@ export class UploadfileComponent implements OnInit {
   updateDisplayedFiles() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     this.displayedFiles = this.files.slice(startIndex, startIndex + this.pageSize);
-    console.log("Displayed Files:", this.displayedFiles); // Debugging
+
   }
 
 
@@ -64,16 +67,34 @@ export class UploadfileComponent implements OnInit {
   }
 
   deleteFile(id: number) {
-    if (confirm('Are you sure you want to delete this file?')) {
+this.dialog.open(ConfirmComponentComponent, {
+ width: '350px',
+ disableClose: true,
+}).afterClosed().subscribe((result) => {
+
       this.http.delete(`${this.apiUrl.BaseUrl}/StudentHelp/DeleteFileById/DeleteFileById/${id}`).subscribe({
-        next: () => {
+        next: (res:any) => {
+
+          console.log(res);
+          this.dialog.open(FinalMessageComponent, {
+            width: '350px',
+            disableClose: true,
+            data: { message: res.message }
+          });
           this.files = this.files.filter(file => file.id !== id);
           this.totalPages = Math.ceil(this.files.length / this.pageSize);
           this.updateDisplayedFiles();
         },
-        error: (error) => console.error('Error deleting file:', error)
+        error: (error) => {
+          console.error('Error deleting file:', error);
+          this.dialog.open(FinalMessageComponent, {
+            width: '350px',
+            disableClose: true,
+            data: { message: 'Error deleting file' }
+          });
+        }
       });
-    }
+    });
   }
 
   openUploadModal() {
@@ -103,7 +124,12 @@ export class UploadfileComponent implements OnInit {
 
     this.http.post(`${this.apiUrl.BaseUrl}/StudentHelp/UploadFile`, formData).subscribe({
       next: () => {
-        alert('File uploaded successfully!');
+
+        this.dialog.open(FinalMessageComponent, {
+          width: '350px',
+          disableClose: true,
+          data: { message: 'File uploaded successfully' }
+        });
         this.closeUploadModal();
         this.loadFiles();
       },

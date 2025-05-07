@@ -45,10 +45,8 @@ export class LoginComponent {
         if (res.token && res.roles[0] === 'Admin') {
           const expiresIn = 60*60 * 1000;
           const expirationTime = new Date().getTime() + expiresIn;
-
           localStorage.setItem('token', res.token);
           localStorage.setItem('tokenExpiration', expirationTime.toString());
-
           this.startAutoLogout(expiresIn);
 
           this.router.navigateByUrl('/dashboard');

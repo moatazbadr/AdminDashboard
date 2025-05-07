@@ -24,7 +24,7 @@ export class ManageCoursesComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient,private dialog: MatDialog) {
     this.courseForm = this.fb.group({
-      courseCode: ['', [Validators.required, Validators.minLength(4),Validators.pattern(/^[A-Za-z]{4}\d{3}$/),englishOnlyValidator,]],
+      courseCode: ['', [Validators.required, Validators.minLength(4),Validators.pattern(/^[A-Z]{4}\d{3}$/),englishOnlyValidator,]],
       courseDescription: ['', [Validators.required,englishOnlyValidator,Validators.maxLength(50),Validators.min(5),]],
       course_hours: [2, [Validators.required, Validators.min(2) ,Validators.max(4) ,]],
       course_level: [1, [Validators.required, Validators.min(1) ,Validators.max(4),]],

@@ -16,8 +16,15 @@
         <label for="fileName">File Name:</label>
         <input type="text" id="fileName" [(ngModel)]="fileName" name="fileName" required>
 
-        <label for="type">File type:</label>
-        <input type="text" id="type" [(ngModel)]="type" name="type" required>
+        <label for="type">File Type:</label>
+<select id="type" [(ngModel)]="type" name="type" required class="form-control">
+  <option value="" disabled selected>Select file type</option>
+  <option value="StudentGuide">Student Guide</option>
+  <option value="LabSchedule">Lab Schedule</option>
+  <option value="LectureSchedule">Lecture Schedule</option>
+  <option value="ExamSchedule">Exam Schedule</option>
+</select>
+
 
         <label for="fileInput">Choose File:</label>
         <input type="file" id="fileInput" (change)="onFileSelected($event)" required>
@@ -30,7 +37,6 @@
     </div>
   </div>
 
-  <!-- File List -->
   <table>
     <thead>
       <tr>
@@ -60,7 +66,6 @@
 
   <p *ngIf="files.length === 0" class="no-files">No files uploaded yet.</p>
 
-  <!-- Pagination Controls -->
   <div class="pagination-controls">
     <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
     <span>Page {{ currentPage }} of {{ totalPages }}</span>
