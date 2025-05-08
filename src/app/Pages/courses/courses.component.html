@@ -13,12 +13,7 @@
       >
     </div>
 
-    <div class="action-buttons">
-      <button class="action-btn delete-btn" (click)="removeCourse()">
-        <i class="fas fa-trash-alt"></i>
-        <span>Delete Course</span>
-      </button>
-    </div>
+
   </div>
 
   <!-- Courses Grid -->
@@ -37,9 +32,15 @@
           <span class="doctor-name" [ngClass]="{ 'not-assigned': Course.doctors.length <= 0 }">
             {{ Course.doctors.length == 0 ? 'Not Assigned' : Course.doctors }}
           </span>
-          <button class="btn" (click)="getCourseProfile(Course.courseCode)">
-            <i class="fas fa-edit"></i>
-          </button>
+          <div class="action-buttons">
+            <button class="btn" (click)="getCourseProfile(Course.courseCode.toUpperCase())">
+              <i class="fas fa-edit"></i>
+            </button>
+      <button class="action-btn delete-btn" (click)="removeCourse(Course.courseCode)">
+        <i class="fas fa-trash-alt"></i>
+        <span></span>
+      </button>
+    </div>
         </div>
       </div>
     </div>

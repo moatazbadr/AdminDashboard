@@ -60,33 +60,19 @@ export class CoursesComponent implements OnInit {
   }
 
 
-  removeCourse(){
-    if (this.searchText.trim()===""){
-      this.dialog.open(FinalMessageComponent,{
+  removeCourse(CourseCode: string) {
 
-       width:'350px',
-       disableClose:false,
-       data :{
-        message :'Enter Valid Course Code'
-       }
-      })
-      return;
-    }
-   const coursetoDelete=
-    {
-      courseCode:this.searchText.toUpperCase()
-    }
     const dialogRef = this.dialog.open(ConfirmComponentComponent, {
       width: '350px',
       disableClose: true,
       data: {
-        message: `Are you sure you want to remove the course "${this.searchText.toUpperCase()}"?`
+        message: `Are you sure you want to remove the course "${CourseCode}"?`
       }
     });
         dialogRef.afterClosed().subscribe(result=>{
           if(result){
 
-            this.http.delete(this.baseUrl.BaseUrl+"/Course/remove-course",{body:coursetoDelete}).subscribe(
+            this.http.delete(this.baseUrl.BaseUrl+"/Course/remove-course",{body:CourseCode}).subscribe(
               {
                 next:(res:any)=>{
 
