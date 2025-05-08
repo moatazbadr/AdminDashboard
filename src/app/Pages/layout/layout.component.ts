@@ -29,21 +29,23 @@ baseUrl=new BasUrl();
     'userName':''
   }
   constructor(private dialog: MatDialog) {}
-  GetProfile(){
-    this.http.get(this.baseUrl.BaseUrl+"/Profile/Profile").subscribe(
-      (res:any)=>{
-        if (res.userName){
-          this.AdminUser.userName=res.userName;
-          this.AdminUser.email=res.email;
-        }
-        else{
-          alert("error fetching");
-        }
-
+GetProfile() {
+  this.http.get(this.baseUrl.BaseUrl + "/Profile/Profile").subscribe(
+    (res: any) => {
+      console.log("API Response:", res); // Log the entire response
+      if (res.success == true) {
+        this.AdminUser.userName = res.userProfile.userName;
+        this.AdminUser.email = res.userProfile.email;
+      } else {
+        alert("Error fetching: " + res.message); // Show the server's error message
       }
-
-    )
-  }
+    },
+    (err) => {
+      console.error("HTTP Error:", err); // Log detailed HTTP errors
+      alert("HTTP request failed. Check console.");
+    }
+  );
+}
 
   getLogoImagePath(){
     return "../../../assets/200544_eee.png"
