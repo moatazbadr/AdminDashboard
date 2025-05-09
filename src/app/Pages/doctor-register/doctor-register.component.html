@@ -14,10 +14,6 @@
   <label for="email">Email</label>
   <input type="email" id="email" formControlName="email" class="form-control" placeholder="Enter Email" />
 
-  <small *ngIf="doctorForm.controls['email']?.errors?.['required'] && doctorForm.controls['email'].touched" class="error">
-    Email is required.
-  </small>
-
   <small *ngIf="doctorForm.controls['email']?.errors?.['pattern'] && doctorForm.controls['email'].touched" class="error">
     Email must be in the format: someone&#64;Sci.asu.edu.eg
   </small>
