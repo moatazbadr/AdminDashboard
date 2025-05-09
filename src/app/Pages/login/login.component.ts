@@ -78,6 +78,12 @@ export class LoginComponent {
         localStorage.removeItem('tokenExpiration');
         this.http.post(`${this.baseurl.BaseUrl}/Accounts/logout`, {}).subscribe({
           next: () => {
+            this.dialog.open(FinalMessageComponent,{
+              width:'350px',
+              disableClose:false,
+              data :{
+                message :  "Logout successfully"
+              }});
             localStorage.removeItem('token');
             localStorage.removeItem('tokenExpiration');
             this.router.navigateByUrl('/login');

@@ -85,12 +85,10 @@ export class DoctorsComponent implements OnInit {
       width: '350px',
       disableClose: true,
       data: {
-        message: `Are you sure you want to remove this Doctor ?`
+        message: `Are you sure you want to remove `+this.users.find(user => user.id === userId)?.userName
       }
     });
-    // if (!confirm('Are you sure you want to delete this doctor?')) {
-    //   return;
-    // }
+
     dialogRef.afterClosed().subscribe(result=>{
         if (result){
 
