@@ -13,9 +13,10 @@
     <div class="form-group">
       <label for="email">Email</label>
       <input type="email" id="email" formControlName="email" class="form-control" placeholder="Enter Email" />
-      <small *ngIf="doctorForm.controls['email'].invalid && doctorForm.controls['email'].touched" class="error">
+      <small *ngIf="!doctorForm.controls['email'].invalid && !doctorForm.controls['email'].touched" class="error doctorForm.controls['email']">
         Valid email is required.
-      </small>
+  </small>
+
     </div>
 
     <div class="form-group">
