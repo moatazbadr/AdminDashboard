@@ -23,7 +23,7 @@ export class DoctorRegisterComponent {
   constructor(private fb: FormBuilder, private http: HttpClient,private dialog: MatDialog) {
     this.doctorForm = this.fb.group({
       userName: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required,Validators.pattern(/^[a-zA-Z0-9._%+-]+@Sci\.asu\.edu\.eg$/)]],
+      email: ['', [Validators.required,Validators.pattern(/^[a-zA-Z0-9._%+-]+@sci\.asu\.edu\.eg$/)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
