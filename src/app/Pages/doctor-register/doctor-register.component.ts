@@ -18,6 +18,7 @@ export class DoctorRegisterComponent {
   isLoading = false;
   successMessage = '';
   errorMessage = '';
+   showPassword :boolean=false;
 
   constructor(private fb: FormBuilder, private http: HttpClient,private dialog: MatDialog) {
     this.doctorForm = this.fb.group({
