@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { JsonPipe } from '@angular/common';
 import { LogoutConfirmComponent } from '../../Components/logout-confirm/logout-confirm.component';
 import { MatDialog } from '@angular/material/dialog';
+import {Analytics} from "@vercel/analytics/next"
 @Component({
   selector: 'app-layout',
   standalone:true,
