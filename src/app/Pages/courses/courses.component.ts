@@ -28,7 +28,7 @@ export class CoursesComponent implements OnInit {
   filteredCourses: Course[] = [];
   searchText: string = '';
   page: number = 1;
-  itemsPerPage: number = 4;
+  itemsPerPage: number = 8;
   newCourse: AddCourse = new AddCourse();
   http = inject(HttpClient);
   baseUrl=new BasUrl();

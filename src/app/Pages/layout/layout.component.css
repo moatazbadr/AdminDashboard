@@ -130,7 +130,7 @@ body {
 .content {
   flex-grow: 1;
   background-color: #f5f7fa;
-  padding: 25px;
+  padding: 0px;
   overflow-y: auto;
 }
 

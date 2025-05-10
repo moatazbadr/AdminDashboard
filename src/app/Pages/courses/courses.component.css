@@ -1,12 +1,15 @@
 body{
-  overflow: hidden;
-  height: inherit;
+ display: flex;
+  overflow-x: hidden;
+
+  height: 90vh;
+
 }
 
 .courses-container {
   padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  max-width: 1500px;
+  margin: 0 0;
 }
 /* Action Bar */
 .action-bar {
@@ -111,6 +114,7 @@ body{
   transition: transform 0.3s, box-shadow 0.3s;
   display: flex;
   flex-direction: column;
+height: 250px;
 }
 
 .course-card:hover {
@@ -121,8 +125,8 @@ body{
 .card-header {
   background: linear-gradient(135deg, #00b4d8, #0077b6);
   color: white;
-  padding: 1.2rem;
   position: relative;
+  padding: 1.3rem;
 }
 
 .course-code {
@@ -134,23 +138,23 @@ body{
 .credit-hours {
   display: inline-block;
   background: rgba(255, 255, 255, 0.2);
-  padding: 0.25rem 0.75rem;
+  padding: 0rem 0.75rem;
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 500;
 }
 
 .card-body {
-  padding: 1rem;
+  padding: 0.5rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-
+  justify-content: space-between;
 }
 
 .course-description {
   color: #333;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
   line-height: 1.5;
   font-weight: 700;
 font-size: 1.1rem;
@@ -177,7 +181,7 @@ font-size: 1.1rem;
 }
 
 .card-actions {
-  padding: 0 1.5rem 1.5rem;
+  padding: 0 1rem 1rem;
   display: flex;
 }
 
@@ -197,14 +201,14 @@ font-size: 1.1rem;
 .pagination-container {
   display: flex;
   justify-content: center;
-  padding: 0rem 0;
+  margin: 0 auto;
 }
 .btn {
   background-color: #FF8C00;
   color: white;
   border: none;
   border-radius: 6px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   width: auto;
   min-width: 90px;
   font-size: 16px;

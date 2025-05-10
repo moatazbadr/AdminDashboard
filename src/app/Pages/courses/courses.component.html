@@ -1,4 +1,4 @@
-<div class="courses-container">
+<div class="courses-container mb-0">
   <div class="action-bar">
     <div class="search-container">
       <i class="fas fa-search search-icon"></i>
@@ -10,8 +10,18 @@
         (input)="searchCourses()"
         class="search-input"
       >
-    </div>
 
+    </div>
+ <div class="pagination-container">
+    <pagination-controls
+      (pageChange)="page = $event"
+      previousLabel="Prev"
+      nextLabel="Next"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div>
 
   </div>
 
@@ -37,22 +47,13 @@
             </button>
       <button class="action-btn delete-btn" (click)="removeCourse(Course.courseCode)">
         <i class="fas fa-trash-alt"></i>
-        
+
       </button>
     </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="pagination-container">
-    <pagination-controls
-      (pageChange)="page = $event"
-      previousLabel="Prev"
-      nextLabel="Next"
-      screenReaderPaginationLabel="Pagination"
-      screenReaderPageLabel="page"
-      screenReaderCurrentLabel="You're on page">
-    </pagination-controls>
-  </div>
+
 
 </div>

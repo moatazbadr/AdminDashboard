@@ -55,7 +55,7 @@ export class ManageCoursesComponent {
     this.http.post(`${this.baseurl.BaseUrl}/Course/Add-course`, this.courseForm.value)
       .subscribe({
         next: (res:any) => {
-          if (res.success){
+          if (res.success)  {
           this.isLoading = false;
           this.dialog.open(FinalMessageComponent,{
             width:'350px',
@@ -71,8 +71,6 @@ export class ManageCoursesComponent {
 
 
 
-        this.courseForm.reset();
-
         },
         error: (err) => {
           this.isLoading = false;
@@ -80,7 +78,7 @@ export class ManageCoursesComponent {
             width:'350px',
             disableClose:false,
             data :{
-              message :  "Fatel error Check Console"
+              message :  "Fatel error refresh the page and try again"
             }
 
           })
