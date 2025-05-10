@@ -136,7 +136,7 @@
         </small>
 
         <small class="text-danger" *ngIf="!courseForm.controls['finalExam'].errors?.['required'] && courseForm.controls['finalExam'].errors?.['min']">
-          Course finalExam  cannot be less than 90.
+          Course finalExam  cannot be less than 70.
         </small>
         <small class="text-danger" *ngIf="!courseForm.controls['finalExam'].errors?.['required'] && !courseForm.controls['finalExam'].errors?.['min'] && courseForm.controls['finalExam'].errors?.['max']">
           Course finalExam  cannot be more than 120.
