@@ -65,7 +65,7 @@ export class CourseUpdateComponent implements OnInit {
             has_Lab: [this.CoruseToUpdate.has_Lab ,],
             midTerm: [this.CoruseToUpdate.midTerm, [Validators.required, Validators.min(15),Validators.max(37),]],
             oral: [this.CoruseToUpdate.oral, [Validators.required, Validators.min(5), Validators.max(10) ]],
-            finalExam: [this.CoruseToUpdate.finalExam, [Validators.required, Validators.min(90),   Validators.max(120),]],
+            finalExam: [this.CoruseToUpdate.finalExam, [Validators.required, Validators.min(70),   Validators.max(120),]],
             lab: [this.CoruseToUpdate.lab, [Validators.required, Validators.min(0), Validators.max(50) ]],
             totalMark: [this.CoruseToUpdate.totalMark, [Validators.required, Validators.min(100), Validators.max(200) ]]
           },{

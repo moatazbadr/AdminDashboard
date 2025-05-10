@@ -31,8 +31,8 @@ export class ManageCoursesComponent {
       course_semster: [1, [Validators.required, Validators.min(1),Validators.max(2),]],
       has_Lab: [false,],
       midTerm: [15, [Validators.required, Validators.min(15),Validators.max(37),]],
-      oral: [8, [Validators.required, Validators.min(8),Validators.max(10) ]],
-      finalExam: [90, [Validators.required, Validators.min(90) ,Validators .max(120),]],
+      oral: [8, [Validators.required, Validators.min(5),Validators.max(10) ]],
+      finalExam: [70, [Validators.required, Validators.min(70) ,Validators .max(120),]],
       lab: [0, [Validators.required, Validators.min(0),Validators.max(50) ]],
       totalMark: [100, [Validators.required, Validators.min(90), Validators.max(200) ]]
     },{
@@ -69,7 +69,7 @@ export class ManageCoursesComponent {
           this.courseForm.reset();
         }
 
-        
+
 
         this.courseForm.reset();
 
