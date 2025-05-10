@@ -68,14 +68,9 @@ export class ManageCoursesComponent {
 
           this.courseForm.reset();
         }
-        this.dialog.open(FinalMessageComponent,{
-          width:'350px',
-          disableClose:false,
-          data :{
-            message : res.success===false ? res.message : "lol no"
-          }
 
-        })
+        
+
         this.courseForm.reset();
 
         },
