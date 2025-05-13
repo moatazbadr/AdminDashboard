@@ -30,8 +30,10 @@ This dashboard provides administrators with the tools to manage courses, users, 
 | ---------------------| --------------------| -------------------------------------------- |
 | Node.js              | v18 or higher       | [https://nodejs.org/](https://nodejs.org/)   |
 | npm                  | v9 or higher        | Comes with Node.js                           |
-| Angular CLI          | v15 or higher       | npm install -g @angular/cli                |
+| Angular CLI          | v18 or higher       | npm install -g @angular/cli                  |
 | Git (optional)       | Any                 | [https://git-scm.com/](https://git-scm.com/) |
+|Bootstrap             | v5                  | [https://ng-bootstrap.com/](https://ng-bootstrap.github.io/#/home)|
+|Angular material      |   v18 or higher    | [https://material.angular.com/](https://material.angular.dev/) |
 
 
 ## ⚙️ Setup Instructions 
