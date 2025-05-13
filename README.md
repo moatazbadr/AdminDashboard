@@ -1,4 +1,9 @@
-# Edu-plat Admin Dashboard
+<p align="center">
+  <img src="./src/assets/EduPlat_logo.png" alt="Logo" width="250"/>
+</p>
+
+# Edu-plat Admin Dashboard 
+
 
 ![Angular](https://img.shields.io/badge/Angular-v19-red)
 ![TypeScript](https://img.shields.io/badge/TypeScript-v5-blue)
@@ -30,13 +35,22 @@ This dashboard provides administrators with the tools to manage courses, users, 
 
 
 ## ⚙️ Setup Instructions 
-  ### 🪟 For Windows / 🍎For macOS
+  ### 🪟 For Windows 
   1-Open PowerShell / CMD and run the following: 
 ```bash
     git clone https://github.com/moatazbadr/AdminDashboard.git
     cd AdminDashboard
     npm install
     ng serve
+```
+### 🍎For macOS
+  1-Open Terminal and run the following 
+```
+git clone https://github.com/moatazbadr/AdminDashboard.git
+cd AdminDashboard
+npm install
+ng serve 
+
 ```
 ## 🚀 Launching the Application
   ### Open your browser and open 
@@ -53,3 +67,5 @@ https://admin-dashboard-c9dh.vercel.app/login
 | `EACCES` permission errors | Use `sudo` on macOS or run PowerShell as Admin on Win |
 | App not loading in browser | Ensure port 4200 is not blocked or in use             |
 | Slow npm install           | Try clearing npm cache: `npm cache clean --force`     |
+
+
