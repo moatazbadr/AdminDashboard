@@ -7,12 +7,12 @@
 ## 📌 OverView
 
 The Edu-Plat Admin Dashboard is a crucial component of Edu-Plat, 
-an online educational platform designed to serve the Faculty of Science,
+an online educational platform designed to serve the Faculty of Science.
 Ain Shams University's Mathematics Department espcially Computer sicence program.
-This dashboard provides administrators with the tools to manage courses ,users and more!
+This dashboard provides administrators with the tools to manage courses, users, and more!
 
-### Admin Roles :
-- Manage courses (add/delete)
+### Features :
+- Manage courses CRUD operations
 - Manage Doctor Registeration And Removal
 - Upload important Academic Files (Exams Schedules ,Labs Schedules ,etc...)
 - View academic analytics
@@ -30,10 +30,26 @@ This dashboard provides administrators with the tools to manage courses ,users a
 
 
 ## ⚙️ Setup Instructions 
-  ### 🪟 For Windows 
-  1-Open PowerShell / CMD and run the following:
-  
-bash
+  ### 🪟 For Windows / 🍎For macOS
+  1-Open PowerShell / CMD and run the following: 
+```bash
     git clone https://github.com/moatazbadr/AdminDashboard.git
     cd AdminDashboard
     npm install
+    ng serve
+```
+## 🚀 Launching the Application
+  ### Open your browser and open 
+```
+http://localhost:4200
+```
+## Alertnatively you can visit the Hosted site at 
+https://admin-dashboard-c9dh.vercel.app/login
+
+## ❗ Troubleshooting
+| Issue                      | Solution                                              |
+| -------------------------- | ----------------------------------------------------- |
+| `ng: command not found`    | Run `npm install -g @angular/cli`                     |
+| `EACCES` permission errors | Use `sudo` on macOS or run PowerShell as Admin on Win |
+| App not loading in browser | Ensure port 4200 is not blocked or in use             |
+| Slow npm install           | Try clearing npm cache: `npm cache clean --force`     |
