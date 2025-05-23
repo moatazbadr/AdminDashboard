@@ -104,7 +104,7 @@ export class StudentComponent implements OnInit {
                         message :  res.message
                       }}
                     );
-                    this.getUsersByType('Students');
+                    this.getUsersByType('students');
                   } else {
                     this.dialog.open(FinalMessageComponent,{
                       width:'350px',

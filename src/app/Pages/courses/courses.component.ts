@@ -60,52 +60,48 @@ export class CoursesComponent implements OnInit {
   }
 
 
-  removeCourse(CourseCode: string) {
+removeCourse(CourseCode: string) {
+  const dialogRef = this.dialog.open(ConfirmComponentComponent, {
+    width: '350px',
+    disableClose: true,
+    data: {
+      message: `Are you sure you want to remove the course "${CourseCode}"?`
+    }
+  });
 
-    const dialogRef = this.dialog.open(ConfirmComponentComponent, {
-      width: '350px',
-      disableClose: true,
-      data: {
-        message: `Are you sure you want to remove the course "${CourseCode}"?`
-      }
-    });
-        dialogRef.afterClosed().subscribe(result=>{
-          if(result){
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      const options = {
+        headers: { 'Content-Type': 'application/json' },
+        body: { courseCode: CourseCode } // Wrapped in an object!
+      };
 
-            this.http.delete(this.baseUrl.BaseUrl+"/Course/remove-course",{body:CourseCode}).subscribe(
-              {
-                next:(res:any)=>{
-
-                    this.dialog.open(FinalMessageComponent,{
-                      width:'350px',
-                      disableClose:false,
-                      data :{
-                        message : res.success ? res.message : "Something went wrong"
-                      }
-                }
-              )
-            },
-                error:(err)=>{
-                  this.dialog.open(FinalMessageComponent,{
-                    width:'350px',
-                    disableClose:false,
-                    data :{
-                      message : "Couldn't delete the course check Console"
-                    }
-
-                }
-              )
-                console.log(err);
-
-              }
-              }
-            )
-          }
+      this.http.delete(this.baseUrl.BaseUrl + "/Course/remove-course", options).subscribe({
+        next: (res: any) => {
+          this.dialog.open(FinalMessageComponent, {
+            width: '350px',
+            disableClose: false,
+            data: {
+              message: res.success ? res.message : "Something went wrong"
+            }
+          });
+          this.load_Courses(); // Optionally refresh course list
+        },
+        error: (err) => {
+          this.dialog.open(FinalMessageComponent, {
+            width: '350px',
+            disableClose: false,
+            data: {
+              message: "Couldn't delete the course. Check console."
+            }
+          });
+          console.log(err);
         }
-        )
+      });
+    }
+  });
+}
 
-
-  }
 
 
 
