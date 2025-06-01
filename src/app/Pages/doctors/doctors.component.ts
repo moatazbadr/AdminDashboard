@@ -12,7 +12,8 @@ import { users } from '../../Models/Users';
 
 @Component({
   selector: 'app-doctors',
-  imports: [CommonModule, FormsModule ,NgbHighlight ],
+  standalone: true,
+  imports: [FormsModule,CommonModule],
   templateUrl: './doctors.component.html',
   styleUrls: ['./doctors.component.css']
 })
