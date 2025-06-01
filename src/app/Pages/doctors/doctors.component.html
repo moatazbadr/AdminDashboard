@@ -1,7 +1,7 @@
 <div class="user-list-container">
   <h2>Doctor List</h2>
 
-  <table>
+  <!-- <table>
     <thead>
       <tr>
         <th>Profile Picture</th>
@@ -27,60 +27,45 @@
         <td><span *ngIf="!user.phoneNumber">No phone number yet</span>{{ user.phoneNumber }}</td>
         <td>{{ user.joinedDate }}</td>
         <td>
-          <button class="btn btn-danger btn-sm rounded-5" type="button" (click)="RemoveDoctor(user.id)">
+          <button class="btn btn-danger btn-sm rounded-5" type="button" (click)="RemoveDoctor(user.id? user.id : '')">
             Delete
           </button>
         </td>
       </tr>
     </tbody>
-  </table>
-
-
-
-<form>
-	<div class="mb-3 row">
-		<label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
-		<div class="col-xs-3 col-sm-auto">
-			<!-- <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" /> -->
-		</div>
-	</div>
-</form>
-
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Profile Picture</th>
-        <th>Doctor Name</th>
-        <th>Doctor Email</th>
-        <th>Doctor Phone</th>
+  </table> -->
+  <table class="table table-striped">
+  <thead>
+    <tr>
+        <th>Profile Picture</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
         <th>Joined Date</th>
         <th>Action</th>
-		</tr>
-	</thead>
-	<tbody>
-    @for (user of users; track user.userName) {
-  <tr>
-    <th scope="row">{{ $index + 1 }}</th>
-    <td>
-      <img
-        [src]="user.profilePicture || 'https://via.placeholder.com/20'"
-        [alt]="'Profile picture of ' + user.userName"
-        class="me-2 rounded-circle"
-        style="width: 20px; height: 20px"
-      />
-      <ngb-highlight [result]="user.userName" [term]="filter.value" />
-    </td>
-    <td><ngb-highlight [result]="user.email" [term]="filter.value" /></td>
-    <td><ngb-highlight [result]="user.phoneNumber || 'N/A'" [term]="filter.value" /></td>
-    <td><ngb-highlight [result]="user.joinedDate | date:'mediumDate'" [term]="filter.value" /></td>
-  </tr>
-} @empty {
-  <tr>
-    <td colspan="5" style="text-align: center">No users found</td>
-  </tr>
-}
-
-	</tbody>
+    </tr>
+  </thead>
+  <tbody>
+   <tr *ngFor="let user of displayedUsers">
+        <td>
+          <img
+            *ngIf="user.profilePicture"
+            [src]="user.profilePicture"
+            alt="Profile Picture"
+          />
+          <span *ngIf="!user.profilePicture">No Image</span>
+        </td>
+        <td>{{ user.userName }}</td>
+        <td>{{ user.email }}</td>
+        <td><span *ngIf="!user.phoneNumber">No phone number yet</span>{{ user.phoneNumber }}</td>
+        <td>{{ user.joinedDate }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm rounded-5" type="button" (click)="RemoveDoctor(user.id? user.id : '')">
+            Delete
+          </button>
+        </td>
+      </tr>
+  </tbody>
 </table>
 
   <p *ngIf="users.length === 0" class="no-users">No users found.</p>

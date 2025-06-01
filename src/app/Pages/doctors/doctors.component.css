@@ -66,3 +66,22 @@ tr:hover {
   background-color: #cccccc;
   cursor: not-allowed;
 }
+
+@media (max-width: 480px) {
+
+  .table {
+    font-size: 0.5rem;
+    width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  }
+  .table  {
+
+  }
+  .btn{
+    width: 50px;
+    font-size: 0.5rem;
+  }
+
+}
