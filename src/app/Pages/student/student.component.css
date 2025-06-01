@@ -65,3 +65,72 @@ tr:hover {
   background-color: #cccccc;
   cursor: not-allowed;
 }
+@media (max-width: 480px) {
+  .table {
+    font-size: 0.75rem;
+    border: 0;
+  }
+
+  thead {
+    display: none;
+  }
+
+  .table tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fff;
+  }
+
+  .table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #333;
+    text-transform: capitalize;
+  }
+
+  .table td:last-child {
+    border-bottom: 0;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 0.65rem;
+    padding: 5px 8px;
+  }
+
+  img {
+    max-width: 50px;
+    height: auto;
+    border-radius: 50%;
+  }
+}
+
+
+
+
+@media (max-width: 480px) {
+  .pagination-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .pagination-controls button {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .pagination-controls span {
+    font-size: 0.9rem;
+  }
+}

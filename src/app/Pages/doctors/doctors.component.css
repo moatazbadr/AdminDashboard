@@ -67,21 +67,116 @@ tr:hover {
   cursor: not-allowed;
 }
 
-@media (max-width: 480px) {
-
-  .table {
-    font-size: 0.5rem;
-    width: 100%;
+/* Base styles */
+.table {
+  width: 100%;
   border-collapse: collapse;
-  border-radius: 8px;
-  overflow: hidden;
-  }
-  .table  {
-
-  }
-  .btn{
-    width: 50px;
-    font-size: 0.5rem;
-  }
-
 }
+
+
+@media (max-width: 480px) {
+  .table {
+    font-size: 0.75rem;
+    border: 0;
+  }
+
+  thead {
+    display: none; 
+  }
+
+  .table tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fff;
+  }
+
+  .table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #333;
+    text-transform: capitalize;
+  }
+
+  .table td:last-child {
+    border-bottom: 0;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 0.65rem;
+    padding: 5px 8px;
+  }
+
+  img {
+    max-width: 50px;
+    height: auto;
+    border-radius: 50%;
+  }
+}
+.no-users {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: 2rem;
+}
+
+/* Pagination Styles */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.pagination-controls button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Mobile Styles */
+@media (max-width: 480px) {
+  .pagination-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .pagination-controls button {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .pagination-controls span {
+    font-size: 0.9rem;
+  }
+}
+
