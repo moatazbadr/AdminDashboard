@@ -7,28 +7,24 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { FinalMessageComponent } from '../../Components/final-message/final-message.component';
 import { ConfirmComponentComponent } from '../../Components/confirm-component/confirm-component.component';
-interface User {
-  id: string;
-  userName: string;
-  email: string;
-  phoneNumber: string | null;
-  profilePicture?: string | null;
-  joinedDate: string;
-}
+import { users } from '../../Models/Users';
+
 
 @Component({
   selector: 'app-doctors',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule ,NgbHighlight ],
   templateUrl: './doctors.component.html',
   styleUrls: ['./doctors.component.css']
 })
 export class DoctorsComponent implements OnInit {
   http = inject(HttpClient);
-  users: User[] = [];
-  displayedUsers: User[] = []; // Stores users shown per page
+  users: users[] = [];
+  displayedUsers: users[] = []; // Stores users shown per page
   usersCount: number = 0;
   baseurl = new BasUrl();
-
+filter = {
+    value: ''
+  };
   currentPage: number = 1;
   itemsPerPage: number = 6;
   totalPages: number = 0;
