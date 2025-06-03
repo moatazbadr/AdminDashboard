@@ -35,8 +35,8 @@ GetProfile() {
     (res: any) => {
       console.log("API Response:", res); // Log the entire response
       if (res.success == true) {
-        this.AdminUser.userName = res.userName;
-        this.AdminUser.email = res.email;
+        this.AdminUser.userName = res.userData.userName;
+        this.AdminUser.email = res.userData.email;
       } else {
         alert("Error fetching: " + res.message); // Show the server's error message
       }
