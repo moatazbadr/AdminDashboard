@@ -42,7 +42,7 @@ export class LoginComponent {
           console.log(res.message);
           return;
         }
-        if (res.token && res.roles[0] === 'Admin') {
+        if (res.userData.token && res.userData.roles[0] === 'Admin') {
           const expiresIn = 60*60 * 1000;
           const expirationTime = new Date().getTime() + expiresIn;
           localStorage.setItem('token', res.userData.token);
