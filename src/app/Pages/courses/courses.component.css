@@ -1,174 +1,138 @@
-body{
- display: flex;
+/* Base Reset and Layout */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f9;
+  color: #2c3e50;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
   overflow-x: hidden;
-
-  height: 90vh;
-
 }
 
 .courses-container {
   padding: 2rem;
-  max-width: 1500px;
-  margin: 0 0;
+  max-width: 1400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
-/* Action Bar */
+
+
 .action-bar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
   gap: 1rem;
 }
 
 .search-container {
   position: relative;
   flex-grow: 1;
-  max-width: 300px;
+  max-width: 320px;
 }
 
 .search-icon {
   position: absolute;
-  left: 15px;
   top: 50%;
+  left: 1rem;
   transform: translateY(-50%);
-  color: #7f8c8d;
+  color: #999;
+  pointer-events: none;
 }
 
 .search-input {
   width: 100%;
   padding: 0.75rem 1rem 0.75rem 2.5rem;
-  border: 2px solid #dfe6e9;
+  border: 2px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
+  background-color: #fff;
   transition: all 0.3s;
-  background-color: #f8f9fa;
 }
 
 .search-input:focus {
   outline: none;
   border-color: #4C6ED7;
-  box-shadow: 0 0 0 3px rgba(76, 110, 215, 0.1);
-  background-color: white;
+  box-shadow: 0 0 0 4px rgba(76, 110, 215, 0.1);
 }
 
-.action-buttons {
+.pagination-container {
   display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-  justify-content: space-around;
+  justify-content: flex-end;
+  flex-grow: 1;
 }
 
-.action-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s;
-}
 
-.add-btn {
-  background-color: #4C6ED7;
-  color: white;
-}
-
-.add-btn:hover {
-  background-color: #3a5bc7;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(76, 110, 215, 0.3);
-}
-
-.delete-btn {
-  display: inline-block;
-  background-color: #e74c3c;
-  color: white;
-  width: 35%;
-  text-align: center;
-
-}
-
-.delete-btn:hover {
-  background-color: #c0392b;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
-}
-
-/* Courses Grid */
 .courses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
 .course-card {
-  background: white;
-  border-radius: 12px;
+  background-color: #fff;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-height: 250px;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .course-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
 
 .card-header {
-  background: linear-gradient(135deg, #00b4d8, #0077b6);
+  background: linear-gradient(120deg, #1e90ff, #4C6ED7);
+  padding: 1.25rem;
   color: white;
-  position: relative;
-  padding: 1.3rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .course-code {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 0;
 }
 
 .credit-hours {
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
   display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  margin-top: 0.5rem;
 }
 
 .card-body {
-  padding: 0.5rem;
-  flex-grow: 1;
+  flex: 1;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .course-description {
-  color: #333;
-  margin-bottom: 0.5rem;
-  line-height: 1.5;
-  font-weight: 700;
-font-size: 1.1rem;
-
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #34495e;
 }
 
 .doctor-info {
-  margin-top: auto;
   font-size: 0.9rem;
 }
 
 .label {
   color: #7f8c8d;
-  font-weight: 500;
+  margin-right: 0.5rem;
 }
 
 .doctor-name {
@@ -178,67 +142,60 @@ font-size: 1.1rem;
 
 .not-assigned {
   color: #e74c3c;
+  font-weight: 700;
 }
 
-.card-actions {
-  padding: 0 1rem 1rem;
+.action-buttons {
   display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.btn, .action-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn {
+  background-color: #4C6ED7;
+  color: white;
+}
+
+.btn:hover {
+  background-color: #3a5bc7;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(76, 110, 215, 0.3);
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  width: auto;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
 }
 
 .edit-btn {
   background: none;
   border: none;
   color: #4C6ED7;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: color 0.3s;
 }
 
 .edit-btn:hover {
   color: #3a5bc7;
 }
-
-.pagination-container {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-}
-.btn {
-  background-color: #FF8C00;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 5px 10px;
-  width: auto;
-  min-width: 90px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.btn:hover {
-  background-color: #FF6B00;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 3px rgba(0,0,0,0.1);
-}
-
-.btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255,140,0,0.4);
-}
-
-.btn i {
-  font-size: 14px;
-}
-

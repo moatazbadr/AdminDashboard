@@ -113,7 +113,11 @@ this.dialog.open(ConfirmComponentComponent, {
 
   uploadFile() {
     if (!this.selectedFile || !this.fileName) {
-      alert('Please select a file and enter a file name.');
+      this.dialog.open(FinalMessageComponent, {
+          width: '350px',
+          disableClose: true,
+          data: { message: 'please upload a file' }
+        });
       return;
     }
 
@@ -122,9 +126,19 @@ this.dialog.open(ConfirmComponentComponent, {
     formData.append('fileName', this.fileName);
     formData.append('type',this.type);
 
+if(this.selectedFile.type !=='application/pd'){
+
+
+      this.dialog.open(FinalMessageComponent, {
+        width: '350px',
+        disableClose: true,
+        data: { message: 'Please upload a PDF file' }
+      });
+      return;
+}
+
     this.http.post(`${this.apiUrl.BaseUrl}/StudentHelp/UploadFile`, formData).subscribe({
       next: () => {
-
         this.dialog.open(FinalMessageComponent, {
           width: '350px',
           disableClose: true,

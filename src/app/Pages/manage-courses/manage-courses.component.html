@@ -52,7 +52,10 @@
     <div class="form-row">
       <div class="form-group col">
         <label>Course Hours</label>
-        <input type="number" class="form-control" formControlName="course_hours" placeholder="Hours of course">
+        <select class="form-control" formControlName="course_hours">
+    <option value="">Select course hours</option>
+    <option *ngFor="let hour of [2, 3, 4]" [value]="hour">{{ hour }}</option>
+  </select>
         <small class="text-danger" *ngIf="courseForm.controls['course_hours'].errors?.['required']">
           Course Hours are required.
         </small>
@@ -66,7 +69,10 @@
 
       <div class="form-group col">
         <label>Course Level</label>
-        <input type="number" class="form-control" formControlName="course_level" placeholder="Level of course">
+        <select class="form-control" formControlName="course_level">
+          <option value="">Select course level</option>
+          <option *ngFor="let Level of [1,2,3,4]" [value]="Level">{{ Level }}</option>
+        </select>
         <small class="text-danger" *ngIf="courseForm.controls['course_level'].errors?.['required']">
           Course Level is required.
         </small>
@@ -80,7 +86,10 @@
 
       <div class="form-group col">
         <label>Course Semester</label>
-        <input type="number" class="form-control" formControlName="course_semster" placeholder="Semester of course">
+        <select class="form-control" formControlName="course_semster">
+          <option value="">Select course semester</option>
+          <option *ngFor="let sem of [1,2]" [value]="sem">{{ sem }}</option>
+        </select>
         <small class="text-danger" *ngIf="courseForm.controls['course_semster'].errors?.['required']">
           Course Semester is required.
         </small>
@@ -102,7 +111,10 @@
     <div class="form-row">
       <div class="form-group col">
         <label>Midterm Marks</label>
-        <input type="number" class="form-control" formControlName="midTerm" placeholder="Midterm Marks">
+        <select class="form-control" formControlName="midTerm">
+          <option value="">Select course midterm</option>
+          <option *ngFor="let degree of [15,25,37]" [value]="degree">{{ degree }}</option>
+        </select>
         <small class="text-danger" *ngIf="courseForm.controls['midTerm'].errors?.['required']">
           Course Midterm is required.
         </small>
@@ -116,7 +128,10 @@
 
       <div class="form-group col">
         <label>Oral Marks</label>
-        <input type="number" class="form-control" formControlName="oral" placeholder="Oral Marks">
+        <select class="form-control" formControlName="oral">
+          <option value="">Select course oral</option>
+          <option *ngFor="let degree of [5,8,10]" [value]="degree">{{ degree }}</option>
+        </select>
         <small class="text-danger" *ngIf="courseForm.controls['oral'].errors?.['required']">
           Course oral is required.
         </small>
@@ -130,7 +145,10 @@
 
       <div class="form-group col">
         <label>Final Exam Marks</label>
-        <input type="number" class="form-control" formControlName="finalExam" placeholder="Final Exam Marks">
+        <select class="form-control" formControlName="finalExam">
+          <option value="">Select course final</option>
+          <option *ngFor="let degree of [70,90,105,120]" [value]="degree">{{ degree }}</option>
+        </select>
         <small class="text-danger" *ngIf="courseForm.controls['finalExam'].errors?.['required']">
           Course finalExam is required.
         </small>
@@ -145,13 +163,18 @@
 
       <div class="form-group col">
         <label>Lab Marks</label>
-        <input type="number" class="form-control" formControlName="lab" placeholder="Lab Marks">
-
+        <select class="form-control" formControlName="lab">
+          <option value="">Select course lab</option>
+          <option *ngFor="let degree of [37,50]" [value]="degree">{{ degree }}</option>
+        </select>
       </div>
 
       <div class="form-group col">
         <label>Total Marks</label>
-        <input type="number" class="form-control" formControlName="totalMark" placeholder="Total Marks">
+        <select class="form-control" formControlName="totalMark">
+          <option value="">Select course totalmark</option>
+          <option *ngFor="let degree of [100,150,200]" [value]="degree">{{ degree }}</option>
+        </select>
         <small class="text-danger" *ngIf="courseForm.controls['totalMark'].errors?.['required']">
           Course totalMark is required.
         </small>
