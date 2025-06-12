@@ -126,16 +126,16 @@ this.dialog.open(ConfirmComponentComponent, {
     formData.append('fileName', this.fileName);
     formData.append('type',this.type);
 
-if(this.selectedFile.type !=='application/pd'){
+// if(this.selectedFile.type !=='application/pd'){
 
 
-      this.dialog.open(FinalMessageComponent, {
-        width: '350px',
-        disableClose: true,
-        data: { message: 'Please upload a PDF file' }
-      });
-      return;
-}
+//       this.dialog.open(FinalMessageComponent, {
+//         width: '350px',
+//         disableClose: true,
+//         data: { message: 'Please upload a PDF file' }
+//       });
+//       return;
+// }
 
     this.http.post(`${this.apiUrl.BaseUrl}/StudentHelp/UploadFile`, formData).subscribe({
       next: () => {
