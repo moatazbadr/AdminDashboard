@@ -5,9 +5,15 @@
     <div class="form-group">
       <label for="userName">Doctor Name</label>
       <input type="text" id="userName" formControlName="userName" class="form-control" placeholder="Enter Doctor Name" />
-      <small *ngIf="doctorForm.controls['userName'].invalid && doctorForm.controls['userName'].touched" class="error">
-        Name is required (min 3 characters).
-      </small>
+      <small *ngIf="doctorForm.controls['userName'].errors?.['required'] && doctorForm.controls['userName'].touched" class="error">
+  Name is required.
+</small>
+<small *ngIf="doctorForm.controls['userName'].errors?.['minlength'] && doctorForm.controls['userName'].touched" class="error">
+  Minimum 3 characters.
+</small>
+<small *ngIf="doctorForm.controls['userName'].errors?.['englishOnly'] && doctorForm.controls['userName'].touched" class="text-danger">
+  Only English characters are allowed.
+</small>
     </div>
 
 <div class="form-group">
@@ -26,7 +32,7 @@
   </small>
 
   <small *ngIf="doctorForm.controls['email']?.errors?.['pattern'] && doctorForm.controls['email'].touched" class="error">
-    Email must be in the format: someone&#64;Sci.asu.edu.eg
+    Email must be in the format: someone&#64;sci.asu.edu.eg
   </small>
 </div>
 
