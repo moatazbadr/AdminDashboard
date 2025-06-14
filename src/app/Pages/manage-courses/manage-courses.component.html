@@ -113,7 +113,7 @@
         <label>Midterm Marks</label>
         <select class="form-control" formControlName="midTerm">
           <option value="">Select course midterm</option>
-          <option *ngFor="let degree of [15,25,37]" [value]="degree">{{ degree }}</option>
+          <option *ngFor="let degree of [15,20,25,37]" [value]="degree">{{ degree }}</option>
         </select>
         <small class="text-danger" *ngIf="courseForm.controls['midTerm'].errors?.['required']">
           Course Midterm is required.
