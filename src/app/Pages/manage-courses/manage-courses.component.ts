@@ -51,6 +51,7 @@ export class ManageCoursesComponent {
     this.isLoading = true;
     this.successMessage = '';
     this.errorMessage = '';
+    
 
     this.http.post(`${this.baseurl.BaseUrl}/Course/Add-course`, this.courseForm.value)
       .subscribe({
@@ -67,6 +68,19 @@ export class ManageCoursesComponent {
           })
 
           this.courseForm.reset();
+        }
+        else {
+
+          this.isLoading = false;
+          this.dialog.open(FinalMessageComponent,{
+            width:'350px',
+            disableClose:false,
+            data :{
+              message : res.message ? res.message : "Something went wrong"
+            }
+
+          })
+          console.error(res.message);
         }
 
 
