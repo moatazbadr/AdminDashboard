@@ -90,7 +90,7 @@ export class LoginComponent {
           },
           error: (err) => {
             console.error('Logout error:', err);
-            alert('Logout failed. Try again.');
+            //alert('Logout failed. Try again.');
           }
         });
         this.router.navigateByUrl('/login');
