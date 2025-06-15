@@ -138,12 +138,22 @@ if(this.selectedFile.type !=='application/pdf'){
 }
 
     this.http.post(`${this.apiUrl.BaseUrl}/StudentHelp/UploadFile`, formData).subscribe({
-      next: () => {
-        this.dialog.open(FinalMessageComponent, {
+      next: (res:any) => {
+if (res.success) {
+this.dialog.open(FinalMessageComponent, {
           width: '350px',
           disableClose: true,
           data: { message: 'File uploaded successfully' }
         });
+}
+else {
+
+  this.dialog.open(FinalMessageComponent, {
+          width: '350px',
+          disableClose: true,
+          data: { message: res.message }
+        });
+}
         this.closeUploadModal();
         this.loadFiles();
       },
