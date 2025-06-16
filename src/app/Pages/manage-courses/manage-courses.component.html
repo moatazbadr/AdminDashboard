@@ -1,4 +1,4 @@
-
+<!--
 <div class="container">
   <h2 class="title">Add new Course</h2>
   <form [formGroup]="courseForm" (ngSubmit)="submitCourseToApi()">
@@ -12,6 +12,10 @@
         <small class="text-danger" *ngIf="courseForm.controls['courseCode'].errors?.['required']">
           Course Code is required.
         </small>
+        <small *ngIf="courseForm.controls['courseCode'].errors?.['required'] && courseForm.errors?.['courseCodeLevelSemesterMismatch']" class="text-danger">
+        Course code does not match selected level or semester.
+        </small>
+
 
         <small class="text-danger"
           *ngIf="!courseForm.controls['courseCode'].errors?.['required'] && courseForm.controls['courseCode'].errors?.['englishOnly']">
@@ -41,6 +45,9 @@
           Only English characters are allowed.
         </small>
 
+        <small class="text-danger" *ngIf="!courseForm.controls['courseDescription'].errors?.['required'] && !courseForm.controls['courseDescription'].errors?.['englishOnly'] && courseForm.controls['courseDescription'].errors?.['minlength']">
+          Description can't be less than 5  characters.
+        </small>
         <small class="text-danger" *ngIf="!courseForm.controls['courseDescription'].errors?.['required'] && !courseForm.controls['courseDescription'].errors?.['englishOnly'] && courseForm.controls['courseDescription'].errors?.['maxlength']">
           Description can't be more than 50 characters.
         </small>
@@ -56,7 +63,7 @@
     <option value="">Select course hours</option>
     <option *ngFor="let hour of [2, 3, 4]" [value]="hour">{{ hour }}</option>
   </select>
-        <small class="text-danger" *ngIf="courseForm.controls['course_hours'].errors?.['required']">
+        <small class="text-danger" *ngIf="courseForm.controls['course_hours'].errors?.['required'] && courseForm.controls['courseCode'].touched ">
           Course Hours are required.
         </small>
         <small class="text-danger" *ngIf="!courseForm.controls['course_hours'].errors?.['required'] && courseForm.controls['course_hours'].errors?.['min']">
@@ -73,7 +80,7 @@
           <option value="">Select course level</option>
           <option *ngFor="let Level of [1,2,3,4]" [value]="Level">{{ Level }}</option>
         </select>
-        <small class="text-danger" *ngIf="courseForm.controls['course_level'].errors?.['required']">
+        <small class="text-danger" *ngIf="courseForm.controls['course_level'].errors?.['required'] ">
           Course Level is required.
         </small>
         <small class="text-danger" *ngIf="!courseForm.controls['course_level'].errors?.['required'] && courseForm.controls['course_level'].errors?.['min']">
@@ -115,15 +122,11 @@
           <option value="">Select course midterm</option>
           <option *ngFor="let degree of [15,20,25,37]" [value]="degree">{{ degree }}</option>
         </select>
-        <small class="text-danger" *ngIf="courseForm.controls['midTerm'].errors?.['required']">
-          Course Midterm is required.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['midTerm'].errors?.['required'] && courseForm.controls['midTerm'].errors?.['min']">
-          Course Midterm  cannot be less than 15.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['midTerm'].errors?.['required'] && !courseForm.controls['midTerm'].errors?.['min'] && courseForm.controls['midTerm'].errors?.['max']">
-          Course Midterm  cannot be more than 37.
-        </small>
+
+        <small class="text-danger"
+  *ngIf="courseForm.controls['midTerm'].errors?.['invalidMark']">
+  {{ courseForm.controls['midTerm'].errors?.['invalidMark'] }}
+</small>
       </div>
 
       <div class="form-group col">
@@ -132,15 +135,11 @@
           <option value="">Select course oral</option>
           <option *ngFor="let degree of [5,8,10]" [value]="degree">{{ degree }}</option>
         </select>
-        <small class="text-danger" *ngIf="courseForm.controls['oral'].errors?.['required']">
-          Course oral is required.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['oral'].errors?.['required'] && courseForm.controls['oral'].errors?.['min']">
-          Course oral  cannot be less than 5.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['oral'].errors?.['required'] && !courseForm.controls['oral'].errors?.['min'] && courseForm.controls['oral'].errors?.['max']">
-          Course oral  cannot be more than 10.
-        </small>
+
+          <small class="text-danger"
+  *ngIf="courseForm.controls['oral'].errors?.['invalidMark']">
+  {{ courseForm.controls['oral'].errors?.['invalidMark'] }}
+</small>
       </div>
 
       <div class="form-group col">
@@ -149,48 +148,36 @@
           <option value="">Select course final</option>
           <option *ngFor="let degree of [70,90,105,120]" [value]="degree">{{ degree }}</option>
         </select>
-        <small class="text-danger" *ngIf="courseForm.controls['finalExam'].errors?.['required']">
-          Course finalExam is required.
-        </small>
 
-        <small class="text-danger" *ngIf="!courseForm.controls['finalExam'].errors?.['required'] && courseForm.controls['finalExam'].errors?.['min']">
-          Course finalExam  cannot be less than 70.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['finalExam'].errors?.['required'] && !courseForm.controls['finalExam'].errors?.['min'] && courseForm.controls['finalExam'].errors?.['max']">
-          Course finalExam  cannot be more than 120.
-        </small>
+          <small class="text-danger"
+  *ngIf="courseForm.controls['finalExam'].errors?.['invalidMark']">
+  {{ courseForm.controls['finalExam'].errors?.['invalidMark'] }}
+</small>
       </div>
 
       <div class="form-group col">
         <label>Lab Marks</label>
         <select class="form-control" formControlName="lab">
           <option value="">Select course lab</option>
-          <option *ngFor="let degree of [0,37,50]" [value]="degree">{{ degree }}</option>
+          <option *ngFor="let degree of labOptions" [value]="degree">{{ degree }}</option>
         </select>
+
       </div>
+
 
       <div class="form-group col">
         <label>Total Marks</label>
         <select class="form-control" formControlName="totalMark">
           <option value="">Select course totalmark</option>
+
           <option *ngFor="let degree of [100,150,200]" [value]="degree">{{ degree }}</option>
+
         </select>
-        <small class="text-danger" *ngIf="courseForm.controls['totalMark'].errors?.['required']">
-          Course totalMark is required.
-        </small>
-        <small class="text-danger" *ngIf="!courseForm.controls['totalMark'].errors?.['required'] && courseForm.controls['totalMark'].errors?.['min']">
-          Course totalMark  cannot be less than 100.
-        </small>
-
-        <small class="text-danger" *ngIf="!courseForm.controls['totalMark'].errors?.['required'] && !courseForm.controls['totalMark'].errors?.['min'] && courseForm.controls['totalMark'].errors?.['max']">
-          Course totalMark  cannot be more than 200.
-        </small>
-
-        <small class="text-danger" *ngIf="courseForm.controls['totalMark'].errors?.['invalidCourseMarks']">
-          invalid total Course Marks.
-        </small>
+<small class="text-danger"
+  *ngIf=" !courseForm.controls['totalMark'].errors?.['required'] && courseForm.controls['totalMark'].errors?.['invalidMark']">
+  {{ courseForm.controls['totalMark'].errors?.['invalidMark'] }}
+</small>
       </div>
-
     </div>
 
     <button
@@ -202,6 +189,160 @@
   </button>
 
 
+    <p class="text-success" *ngIf="successMessage">{{ successMessage }}</p>
+    <p class="text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </form>
+</div> -->
+
+<div class="container">
+  <h2 class="title">Add New Course</h2>
+  <form [formGroup]="courseForm" (ngSubmit)="submitCourseToApi()">
+
+    <!-- Course Code -->
+    <div class="form-group">
+      <label>Course Code</label>
+      <input type="text" class="form-control" formControlName="courseCode" placeholder="Enter Course Code">
+      <ng-container *ngIf="courseForm.controls['courseCode'].touched || courseForm.controls['courseCode'].dirty">
+        <small class="text-danger" *ngIf="courseForm.controls['courseCode'].errors?.['required']">Course Code is required.</small>
+        <small class="text-danger" *ngIf="courseForm.controls['courseCode'].errors?.['required'] && courseForm.errors?.['courseCodeLevelSemesterMismatch']">Course code does not match selected level or semester.</small>
+        <small class="text-danger" *ngIf="courseForm.controls['courseCode'].errors?.['englishOnly']">Only English characters are allowed.</small>
+        <small class="text-danger" *ngIf="courseForm.controls['courseCode'].errors?.['pattern']">Format must be COMP followed by 10x, 20x, 30x, or 40x (e.g., COMP102).</small>
+      </ng-container>
+    </div>
+
+    <!-- Course Description -->
+    <div class="form-group">
+      <label>Course Description</label>
+      <textarea class="form-control" formControlName="courseDescription" placeholder="Enter Course Description"></textarea>
+      <ng-container *ngIf="courseForm.controls['courseDescription'].touched || courseForm.controls['courseDescription'].dirty">
+        <small class="text-danger" *ngIf="courseForm.controls['courseDescription'].errors?.['required']">Course Description is required.</small>
+        <small class="text-danger" *ngIf="courseForm.controls['courseDescription'].errors?.['englishOnly']">Only English characters are allowed.</small>
+        <small class="text-danger" *ngIf="courseForm.controls['courseDescription'].errors?.['minlength']">Description can't be less than 10 characters.</small>
+        <small class="text-danger" *ngIf="courseForm.controls['courseDescription'].errors?.['maxlength']">Description can't be more than 50 characters.</small>
+      </ng-container>
+    </div>
+
+    <!-- Hours, Level, Semester -->
+    <div class="form-row">
+      <div class="form-group col">
+        <label>Course Hours</label>
+        <select class="form-control" formControlName="course_hours">
+          <option value="">Select course hours</option>
+          <option *ngFor="let hour of [2, 3, 4]" [value]="hour">{{ hour }}</option>
+        </select>
+        <small class="text-danger" *ngIf="courseForm.controls['course_hours'].touched && courseForm.controls['course_hours'].errors?.['required']">Course Hours are required.</small>
+        <small class="text-danger" *ngIf="courseForm.controls['course_hours'].errors?.['min']">Must be at least 2 hours.</small>
+        <small class="text-danger" *ngIf="courseForm.controls['course_hours'].errors?.['max']">Cannot be more than 4 hours.</small>
+      </div>
+
+      <div class="form-group col">
+        <label>Course Level</label>
+        <select class="form-control" formControlName="course_level"
+        (blur)="courseForm.controls['course_level'].markAsTouched()"
+        >
+          <option value="">Select course level</option>
+          <option *ngFor="let level of [1, 2, 3, 4]" [value]="level">{{ level }}</option>
+        </select>
+        <small class="text-danger" *ngIf="courseForm.controls['course_level'].errors?.['required'] && courseForm.controls['course_level'].touched">Course Level is required.</small>
+        <small class="text-danger" *ngIf="courseForm.controls['course_level'].errors?.['min']">Must be at least 1.</small>
+        <small class="text-danger" *ngIf="courseForm.controls['course_level'].errors?.['max']">Cannot be more than 4.</small>
+      </div>
+
+      <div class="form-group col">
+        <label>Course Semester</label>
+        <select class="form-control" formControlName="course_semster"
+        (blur)="courseForm.controls['course_semster'].markAsTouched()"
+        >
+          <option value="" selected>Select course semester</option>
+          <option *ngFor="let sem of [1, 2]" [value]="sem">{{ sem }}</option>
+        </select>
+     <small class="text-danger"
+  *ngIf="courseForm.controls['course_semster'].errors?.['required']
+      && courseForm.controls['course_semster'].touched">
+  Course Semester is required.
+</small>
+<small class="text-danger"
+  *ngIf="courseForm.controls['course_semster'].errors?.['min']
+      && courseForm.controls['course_semster'].touched">
+  Must be at least 1.
+</small>
+<small class="text-danger"
+  *ngIf="courseForm.controls['course_semster'].errors?.['max']
+      && courseForm.controls['course_semster'].touched">
+  Cannot be more than 2.
+</small>
+
+      </div>
+    </div>
+
+    <!-- Has Lab -->
+    <div class="form-check my-2">
+      <input type="checkbox" class="form-check-input" id="hasLab" formControlName="has_Lab">
+      <label class="form-check-label" for="hasLab">Has Lab?</label>
+    </div>
+
+    <!-- Marks -->
+    <div class="form-row">
+      <div class="form-group col">
+        <label>Midterm Marks</label>
+        <select class="form-control" formControlName="midTerm">
+          <option value="">Select midterm</option>
+          <option *ngFor="let mark of [15, 20, 25, 37]" [value]="mark">{{ mark }}</option>
+        </select>
+        <small class="text-danger" *ngIf="courseForm.controls['midTerm'].errors?.['invalidMark']">{{ courseForm.controls['midTerm'].errors?.['invalidMark'] }}</small>
+      </div>
+
+      <div class="form-group col">
+        <label>Oral Marks</label>
+        <select class="form-control" formControlName="oral">
+          <option value="">Select oral</option>
+          <option *ngFor="let mark of [5, 8, 10]" [value]="mark">{{ mark }}</option>
+        </select>
+        <small class="text-danger" *ngIf="courseForm.controls['oral'].errors?.['invalidMark']">{{ courseForm.controls['oral'].errors?.['invalidMark'] }}</small>
+      </div>
+
+      <div class="form-group col">
+        <label>Final Exam Marks</label>
+        <select class="form-control" formControlName="finalExam">
+          <option value="">Select final</option>
+          <option *ngFor="let mark of [60,70, 90, 105, 120]" [value]="mark">{{ mark }}</option>
+        </select>
+        <small class="text-danger" *ngIf="courseForm.controls['finalExam'].errors?.['invalidMark']">{{ courseForm.controls['finalExam'].errors?.['invalidMark'] }}</small>
+      </div>
+
+      <div class="form-group col">
+        <label>Lab Marks</label>
+        <select class="form-control" formControlName="lab">
+          <option value="">Select lab</option>
+          <option *ngFor="let mark of labOptions" [value]="mark">{{ mark }}</option>
+        </select>
+        <small class="text-danger" *ngIf="courseForm.controls['lab'].errors?.['invalidMark']">{{ courseForm.controls['lab'].errors?.['invalidMark'] }}</small>
+      </div>
+
+      <div class="form-group col">
+        <label>Total Marks</label>
+        <select class="form-control" formControlName="totalMark">
+          <option value="">Select total</option>
+          <option *ngFor="let mark of [100, 150, 200]" [value]="mark">{{ mark }}</option>
+        </select>
+       <small class="text-danger"
+  *ngIf="(courseForm.controls['totalMark'].touched || courseForm.controls['totalMark'].dirty)
+         && courseForm.controls['totalMark'].errors?.['invalidMark']">
+  {{ courseForm.controls['totalMark'].errors?.['invalidMark'] }}
+</small>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="btn-submit"
+      [disabled]="courseForm.invalid || isLoading"
+      [ngClass]="{ 'disabled-btn': courseForm.invalid || isLoading }">
+      Add Course
+    </button>
+
+    <!-- Feedback -->
     <p class="text-success" *ngIf="successMessage">{{ successMessage }}</p>
     <p class="text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
   </form>

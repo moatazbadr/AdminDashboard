@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FinalMessageComponent } from '../../Components/final-message/final-message.component';
 import { courseMarkValidator } from '../../Services/courseMarkValidator';
 import { englishOnlyValidator } from '../../Services/EnglishValidator';
+import { courseCodeLevelSemesterValidator } from '../../Services/courseCodeLevelSemesterValidator';
 
 @Component({
   selector: 'app-course-update',
@@ -24,7 +25,7 @@ export class CourseUpdateComponent implements OnInit {
   isLoading = false;
   successMessage = '';
   errorMessage = '';
-
+ labOptions: number[] = [];
  courseCode:any="";
 
   constructor(private fb: FormBuilder,private route: ActivatedRoute,private dialog: MatDialog) {
@@ -46,38 +47,46 @@ export class CourseUpdateComponent implements OnInit {
     }
 
   );
+  this.setupDynamicLogic();
   }
-  ngOnInit() {
-     this.courseCode = this.route.snapshot.paramMap.get('courseCode');
-    console.log('Course code:', this.courseCode);
-    this.http.get(this.baseUrl.BaseUrl+`/Course/AdminCourseDetails/${this.courseCode}`)
-    .subscribe({
-      next:(res:any)=>{
-        if (res.success){
-          this.CoruseToUpdate=res.course;
-          // console.log(this.CoruseToUpdate);
-          this.courseForm = this.fb.group({
-            courseCode: [this.CoruseToUpdate.courseCode, [Validators.required, Validators.pattern(/^[A-Z]{4}\d{3}$/),Validators.minLength(4),englishOnlyValidator]],
-            courseDescription: [this.CoruseToUpdate.courseDescription, [Validators.required,englishOnlyValidator,Validators.maxLength(50),Validators.min(5)]],
-            course_hours: [this.CoruseToUpdate.course_hours, [Validators.required, Validators.min(2) ,Validators.max(4) , ]],
-            course_level: [this.CoruseToUpdate.course_level, [Validators.required, Validators.min(1) ,Validators.max(4),]],
-            course_semster: [this.CoruseToUpdate.course_semster, [Validators.required, Validators.min(1),Validators.max(2),]],
-            has_Lab: [this.CoruseToUpdate.has_Lab ,],
-            midTerm: [this.CoruseToUpdate.midTerm, [Validators.required, Validators.min(15),Validators.max(37),]],
-            oral: [this.CoruseToUpdate.oral, [Validators.required, Validators.min(5), Validators.max(10) ]],
-            finalExam: [this.CoruseToUpdate.finalExam, [Validators.required, Validators.min(70),   Validators.max(120),]],
-            lab: [this.CoruseToUpdate.lab, [Validators.required, Validators.min(0), Validators.max(50) ]],
-            totalMark: [this.CoruseToUpdate.totalMark, [Validators.required, Validators.min(100), Validators.max(200) ]]
-          },{
-            validators: courseMarkValidator
-          }
-        );
-        };
+ ngOnInit() {
+  this.courseCode = this.route.snapshot.paramMap.get('courseCode');
+  console.log('Course code:', this.courseCode);
+
+  this.http.get(this.baseUrl.BaseUrl + `/Course/AdminCourseDetails/${this.courseCode}`).subscribe({
+    next: (res: any) => {
+      if (res.success) {
+        this.CoruseToUpdate = res.course;
+
+        this.courseForm = this.fb.group({
+          courseCode: [this.CoruseToUpdate.courseCode, [Validators.required, Validators.pattern(/^[A-Z]{4}\d{3}$/), Validators.minLength(4), englishOnlyValidator]],
+          courseDescription: [this.CoruseToUpdate.courseDescription, [Validators.required, englishOnlyValidator, Validators.maxLength(50), Validators.minLength(5)]],
+          course_hours: [this.CoruseToUpdate.course_hours, [Validators.required, Validators.min(2), Validators.max(4)]],
+          course_level: [this.CoruseToUpdate.course_level, [Validators.required, Validators.min(1), Validators.max(4)]],
+          course_semster: [this.CoruseToUpdate.course_semster, [Validators.required, Validators.min(1), Validators.max(2)]],
+          has_Lab: [this.CoruseToUpdate.has_Lab],
+          midTerm: [this.CoruseToUpdate.midTerm, [Validators.required, Validators.min(15), Validators.max(37)]],
+          oral: [this.CoruseToUpdate.oral, [Validators.required, Validators.min(5), Validators.max(10)]],
+          finalExam: [this.CoruseToUpdate.finalExam, [Validators.required, Validators.min(70), Validators.max(120)]],
+          lab: [this.CoruseToUpdate.lab, [Validators.required, Validators.min(0), Validators.max(50)]],
+          totalMark: [this.CoruseToUpdate.totalMark, [Validators.required, Validators.min(100), Validators.max(200)]]
+        }, {
+          validators: [courseMarkValidator, courseCodeLevelSemesterValidator]
+        });
+
+        // 👉 FIX: Reapply all dynamic logic and lab options AFTER the form is rebuilt
+        this.setLabOptions(this.courseForm.get('has_Lab')?.value);
+        this.setupDynamicLogic();
       }
-
+    },
+    error: (err) => {
+      console.error('Fetch course failed:', err);
     }
-  )
+  });
+}
 
+     setLabOptions(hasLab: boolean): void {
+  this.labOptions = hasLab ? [10,37, 50] : [0];
 }
 
 
@@ -92,57 +101,84 @@ UpdateCourseToApi() {
     return;
   }
 
-  this.courseForm.setValidators(courseMarkValidator);
-  if (this.courseForm.invalid) {
-    this.dialog.open(FinalMessageComponent, {
-      width: '350px',
-      disableClose: false,
-      data: { message: "Invalid mark distribution for the selected course hours/lab status." }
+ const updatedCourse = this.courseForm.value;
+    this.isLoading = true;
+
+    this.http.put(`${this.baseUrl.BaseUrl}/Course/update/${this.courseCode}`, updatedCourse).subscribe({
+      next: (res: any) => {
+        this.isLoading = false;
+        this.dialog.open(FinalMessageComponent, {
+          width: '350px',
+          data: {
+            message: res.success ? res.message || 'Course updated successfully.' : 'Could not update course.'
+          }
+        });
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.dialog.open(FinalMessageComponent, {
+          width: '350px',
+          data: { message: err.error?.message || 'Server error occurred.' }
+        });
+        console.error('HTTP Error:', err);
+      }
     });
-    return;
   }
 
+  private setupDynamicLogic(): void {
+    this.courseForm.get('course_hours')?.valueChanges.subscribe(value => {
+      const midTerm = this.courseForm.get('midTerm');
+      const oral = this.courseForm.get('oral');
+      const finalExam = this.courseForm.get('finalExam');
+      const lab = this.courseForm.get('lab');
+      const totalMark = this.courseForm.get('totalMark');
+      const hasLab = this.courseForm.get('has_Lab');
 
-
-
-  if (this.courseForm.invalid) {
-    this.dialog.open(FinalMessageComponent, {
-      width: '350px',
-      disableClose: false,
-      data: { message: "Please correct validation errors before submitting." }
+      switch (+value) {
+        case 2:
+          midTerm?.setValue(25);
+          oral?.setValue(5);
+          finalExam?.setValue(70);
+          totalMark?.setValue(100);
+          hasLab?.setValue(false);
+          lab?.setValue(0);
+          break;
+        case 3:
+          midTerm?.setValue(37);
+          oral?.setValue(8);
+          finalExam?.setValue(105);
+          totalMark?.setValue(150);
+          hasLab?.setValue(false);
+          lab?.setValue(0);
+          break;
+        case 4:
+          midTerm?.setValue(20);
+          oral?.setValue(10);
+          finalExam?.setValue(120);
+          totalMark?.setValue(200);
+          hasLab?.setValue(true);
+          lab?.setValue(50);
+          break;
+        default:
+          midTerm?.reset();
+          oral?.reset();
+          finalExam?.reset();
+          totalMark?.reset();
+          hasLab?.setValue(false);
+          lab?.setValue(0);
+          break;
+      }
     });
-    return;
+
+    this.courseForm.get('has_Lab')?.valueChanges.subscribe(hasLab => {
+      const labControl = this.courseForm.get('lab');
+      labControl?.setValue(hasLab ? 10 : 0);
+    });
+
+    ['midTerm', 'oral', 'lab', 'finalExam', 'totalMark', 'course_hours'].forEach(field => {
+      this.courseForm.get(field)?.valueChanges.subscribe(() => {
+        this.courseForm.get('totalMark')?.updateValueAndValidity();
+      });
+    });
   }
-
-  const updatedCourse = this.courseForm.value;
-  this.isLoading = true;
-
-  this.http.put(`${this.baseUrl.BaseUrl}/Course/update/${this.courseCode}`, updatedCourse).subscribe({
-    next: (res: any) => {
-      this.isLoading = false;
-
-      this.dialog.open(FinalMessageComponent, {
-        width: '350px',
-        disableClose: false,
-        data: {
-          message: res.success ? res.message || "Updated successfully" : "Couldn't update course."
-        }
-      });
-
-      if (!res.success) console.warn("Update failed:", res);
-    },
-    error: (err) => {
-      this.isLoading = false;
-      this.dialog.open(FinalMessageComponent, {
-        width: '350px',
-        disableClose: false,
-        data: {
-          message: err.error?.message || "Server error occurred"
-        }
-      });
-      console.error("HTTP Error:", err);
-    }
-  });
-
-}
 }

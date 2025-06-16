@@ -8,11 +8,14 @@
       <small *ngIf="doctorForm.controls['userName'].errors?.['required'] && doctorForm.controls['userName'].touched" class="error">
   Name is required.
 </small>
-<small *ngIf="doctorForm.controls['userName'].errors?.['minlength'] && doctorForm.controls['userName'].touched" class="error">
+<small *ngIf="!doctorForm.controls['userName'].errors?.['required'] && doctorForm.controls['userName'].errors?.['englishOnly']" class="text-danger">
+  Only English characters are allowed.
+</small>
+<small *ngIf="!doctorForm.controls['userName'].errors?.['required'] && doctorForm.controls['userName'].errors?.['minlength'] && doctorForm.controls['userName'].touched" class="error">
   Minimum 3 characters.
 </small>
-<small *ngIf="doctorForm.controls['userName'].errors?.['englishOnly'] && doctorForm.controls['userName'].touched" class="text-danger">
-  Only English characters are allowed.
+<small *ngIf="!doctorForm.controls['userName'].errors?.['required'] && doctorForm.controls['userName'].errors?.['maxlength'] && doctorForm.controls['userName'].touched" class="error">
+  Maximum 20 characters.
 </small>
     </div>
 
@@ -31,7 +34,7 @@
     Email is required.
   </small>
 
-  <small *ngIf="doctorForm.controls['email']?.errors?.['pattern'] && doctorForm.controls['email'].touched" class="error">
+  <small *ngIf=" !doctorForm.controls['email']?.errors?.['required']&& doctorForm.controls['email']?.errors?.['pattern'] " class="error">
     Email must be in the format: someone&#64;sci.asu.edu.eg
   </small>
 </div>
@@ -51,8 +54,8 @@
      (click)="showPassword = !showPassword"
      style="position: absolute; right: 10px; top: 45px; cursor: pointer;">
   </i>
-  <small *ngIf="doctorForm.controls['password'].invalid && doctorForm.controls['password'].touched" class="error">
-    Password must be at least 8 characters.
+  <small *ngIf=" !doctorForm.controls['password']?.errors?.['required'] &&doctorForm.controls['password'].invalid && doctorForm.controls['password'].touched" class="error">
+    Password must be at least 8 and max 15 characters with at least 1 captial character 1 special character 1 digit .
   </small>
 
     </div>
