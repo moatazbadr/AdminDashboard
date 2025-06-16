@@ -25,7 +25,7 @@ export class DoctorRegisterComponent {
     this.doctorForm = this.fb.group({
       userName: ['', [Validators.required,englishOnlyValidator,Validators.minLength(3), Validators.maxLength(20)]],
       email: ['', [Validators.required,Validators.pattern(/^[a-zA-Z0-9._%+-]+@sci\.asu\.edu\.eg$/)]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(8),Validators.maxLength(15)]],
     });
   }
 
