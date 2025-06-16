@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FinalMessageComponent } from '../../Components/final-message/final-message.component';
 import { ConfirmComponentComponent } from '../../Components/confirm-component/confirm-component.component';
 import { users } from '../../Models/Users';
+import { LoadingComponent } from '../../Components/loading/loading.component';
 
 
 @Component({
@@ -37,8 +38,14 @@ filter = {
   }
 
   getUsersByType(type: string): void {
+     const loadingRef = this.dialog.open(LoadingComponent, {
+        width: '300px',
+        disableClose: true
+      });
     this.usersService.getUsersByType(type).subscribe({
       next: (response) => {
+
+        loadingRef.close();
         if (response.success) {
           this.users = response.data;
           this.usersCount = response.usersCount;

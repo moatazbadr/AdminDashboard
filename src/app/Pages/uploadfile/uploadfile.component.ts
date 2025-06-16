@@ -35,8 +35,10 @@ export class UploadfileComponent implements OnInit {
   }
 
   loadFiles() {
+    
     this.http.get<{ files: any[] }>(`${this.apiUrl.BaseUrl}/StudentHelp/GetAdminFiles`).subscribe({
       next: (response) => {
+
         this.files = response.files ?? [];
         this.totalPages = Math.ceil(this.files.length / this.pageSize);
         this.updateDisplayedFiles();

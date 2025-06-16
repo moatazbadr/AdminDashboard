@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   template:  `
     <div style="display: flex; flex-direction: column; align-items: center; padding: 20px;">
       <mat-spinner diameter="40"></mat-spinner>
-      <p style="margin-top: 10px;">Uploading...</p>
+      <p style="margin-top: 10px;">Loading...</p>
     </div>
   `
 })

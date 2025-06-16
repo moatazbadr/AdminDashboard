@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponentComponent } from '../../Components/confirm-component/confirm-component.component';
 import { FinalMessageComponent } from '../../Components/final-message/final-message.component';
 import { Router, RouterModule } from '@angular/router';
+import { LoadingComponent } from '../../Components/loading/loading.component';
 @Component({
   selector: 'app-courses',
   standalone: true,
@@ -35,8 +36,13 @@ export class CoursesComponent implements OnInit {
 
   constructor(private dialog: MatDialog) {}
   load_Courses() {
+    const loadingRef = this.dialog.open(LoadingComponent, {
+        width: '300px',
+        disableClose: true
+      });
     this.http.get<Course[]>(this.baseUrl.BaseUrl+"/Course/Get-all-courses").subscribe({
       next: (res: Course[]) => {
+         loadingRef.close();
         this.courses = res;
         this.filteredCourses = res;
       },

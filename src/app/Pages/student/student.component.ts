@@ -7,6 +7,7 @@ import { UsersService } from '../../Services/UsersService';
 import { FinalMessageComponent } from '../../Components/final-message/final-message.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponentComponent } from '../../Components/confirm-component/confirm-component.component';
+import { LoadingComponent } from '../../Components/loading/loading.component';
 
 interface User {
   id: string;
@@ -41,8 +42,13 @@ export class StudentComponent implements OnInit {
   }
 
   getUsersByType(type: string): void {
+    const loadingRef = this.dialog.open(LoadingComponent, {
+        width: '300px',
+        disableClose: true
+      });
     this.usersService.getUsersByType(type).subscribe({
       next: (response) => {
+         loadingRef.close();
         if (response.success) {
           this.users = response.data;
           this.usersCount = response.usersCount;
